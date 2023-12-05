@@ -6,6 +6,8 @@ import com.candles.demo.service.FileService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.rest.webmvc.RepositoryLinksResource;
+import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,10 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RestController
 @RequestMapping("/boxes")
 @RequiredArgsConstructor
-public class BoxController {
+public class BoxController implements RepresentationModelProcessor<RepositoryLinksResource> {
     private final BoxRepository boxRepository;
     private final FileService fileService;
     @PostMapping("/create")
@@ -37,5 +41,11 @@ public class BoxController {
         }
         Box savedBox = boxRepository.save(box);
         response.sendRedirect("/boxes/" + savedBox.getId());
+    }
+
+    @Override
+    public RepositoryLinksResource process(RepositoryLinksResource model) {
+        model.add(linkTo(BoxController.class).slash("/create").withRel("box create via form. Use model as json and file as image"));
+        return model;
     }
 }
