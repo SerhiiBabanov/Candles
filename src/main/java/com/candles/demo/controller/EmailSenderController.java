@@ -2,14 +2,18 @@ package com.candles.demo.controller;
 
 import com.candles.demo.service.EmailSenderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.rest.webmvc.RepositoryLinksResource;
+import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/email")
-public class EmailSenderController {
+public class EmailSenderController implements RepresentationModelProcessor<RepositoryLinksResource> {
 
     private final EmailSenderService emailSenderService;
 
@@ -21,5 +25,12 @@ public class EmailSenderController {
     @RequestMapping("/sendToAll")
     public void sendEmailToAll(@RequestParam String subject, @RequestParam String body) {
         emailSenderService.sendSimpleMessageToAll(subject, body);
+    }
+
+    @Override
+    public RepositoryLinksResource process(RepositoryLinksResource model) {
+        model.add(linkTo(EmailSenderController.class).slash("/send?subject=&body=&emailTo=").withRel("send email to one person"));
+        model.add(linkTo(EmailSenderController.class).slash("/sendToAll?subject=&body=").withRel("send email to all subscribers"));
+        return model;
     }
 }
