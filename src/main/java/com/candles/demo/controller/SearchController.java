@@ -25,7 +25,7 @@ public class SearchController implements RepresentationModelProcessor<Repository
     private final CandleRepository candleRepository;
 
     @GetMapping
-    public List<SearchResultEntity> search(@RequestParam String pattern) {
+    public List<SearchResultEntity> search(@RequestParam(name = "pattern") String pattern) {
         Stream<SearchResultEntity> candles = candleRepository.searchByPattern(pattern).stream()
                 .map(candle -> {
                     SearchResultEntity searchResultEntity = new SearchResultEntity(candle.getId(), candle.getTitle(), candle.getName());
