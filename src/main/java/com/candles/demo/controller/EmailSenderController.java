@@ -18,12 +18,12 @@ public class EmailSenderController implements RepresentationModelProcessor<Repos
     private final EmailSenderService emailSenderService;
 
     @RequestMapping("/send")
-    public void sendEmail(@RequestParam String subject, @RequestParam String body, @RequestParam String emailTo) {
+    public void sendEmail(@RequestParam(name = "subject") String subject, @RequestParam(name = "body") String body, @RequestParam(name = "emailTo") String emailTo) {
         emailSenderService.sendSimpleMessage(subject, body, emailTo);
     }
 
     @RequestMapping("/sendToAll")
-    public void sendEmailToAll(@RequestParam String subject, @RequestParam String body) {
+    public void sendEmailToAll(@RequestParam(name = "subject") String subject, @RequestParam(name = "body") String body) {
         emailSenderService.sendSimpleMessageToAll(subject, body);
     }
 

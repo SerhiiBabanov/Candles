@@ -31,21 +31,21 @@ public class SimilarProductsController implements RepresentationModelProcessor<R
     private final CandleMapper candleMapper;
 
     @GetMapping("/candles")
-    public ResponseEntity<CollectionModel<CandleDto>> getCandles(@RequestParam String id) {
-        List<CandleDto> candleDtos = candleService.getSimilarCandles(id).stream()
+    public ResponseEntity<CollectionModel<CandleDto>> getCandles(@RequestParam(name = "id") String id) {
+        List<CandleDto> candles = candleService.getSimilarCandles(id).stream()
                 .map(candleMapper::toDto)
                 .peek(candle -> candle.add(entityLinks.linkToItemResource(Candle.class, candle.getId())))
                 .toList();
-        return ResponseEntity.ok(CollectionModel.of(candleDtos));
+        return ResponseEntity.ok(CollectionModel.of(candles));
     }
 
     @GetMapping("/boxes")
-    public ResponseEntity<CollectionModel<BoxDto>> getBoxes(@RequestParam String id) {
-        List<BoxDto> boxDtos = boxServices.getSimilarBoxes(id).stream()
+    public ResponseEntity<CollectionModel<BoxDto>> getBoxes(@RequestParam(name = "id") String id) {
+        List<BoxDto> boxes = boxServices.getSimilarBoxes(id).stream()
                 .map(boxMapper::toDto)
                 .peek(box -> box.add(entityLinks.linkToItemResource(Box.class, box.getId())))
                 .toList();
-        return ResponseEntity.ok(CollectionModel.of(boxDtos));
+        return ResponseEntity.ok(CollectionModel.of(boxes));
     }
 
     @Override

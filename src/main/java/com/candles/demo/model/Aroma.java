@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@JsonSerialize
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Aroma {
     private String name;
     private List<String> topNotes;
