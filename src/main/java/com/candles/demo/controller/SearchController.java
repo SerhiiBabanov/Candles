@@ -25,24 +25,18 @@ public class SearchController implements RepresentationModelProcessor<Repository
     private final CandleRepository candleRepository;
 
     @GetMapping
-    public List<SearchResultEntity> search(@RequestParam(name = "pattern") String pattern) {
+    public List<SearchResultEntity> search(@RequestParam(name = "q") String pattern) {
         Stream<SearchResultEntity> candles = candleRepository.searchByPattern(pattern).stream()
-                .map(candle -> {
-                    SearchResultEntity searchResultEntity = new SearchResultEntity(candle.getId(), candle.getTitle(), candle.getName());
-                    return searchResultEntity;
-                });
+                .map(SearchResultEntity::new);
 
         Stream<SearchResultEntity> boxes = boxRepository.searchByPattern(pattern).stream()
-                .map(box -> {
-                    SearchResultEntity searchResultEntity = new SearchResultEntity(box.getId(), box.getTitle(), box.getName());
-                    return searchResultEntity;
-                });
+                .map(SearchResultEntity::new);
         return Stream.concat(boxes, candles).collect(Collectors.toList());
     }
 
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource model) {
-        model.add(linkTo(SearchController.class).slash("?pattern=}").withRel("search by pattern"));
+        model.add(linkTo(SearchController.class).slash("?q=}").withRel("search by pattern"));
         return model;
     }
 }
