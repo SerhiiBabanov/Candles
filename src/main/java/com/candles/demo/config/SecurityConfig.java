@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    //private final AuthenticationFilter authenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationService authenticationService) throws Exception {
