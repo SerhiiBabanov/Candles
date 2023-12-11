@@ -16,7 +16,7 @@ public class CandleService {
     public List<Candle> getSimilarCandles(String id) {
         Optional<Candle> candle = candleRepository.findById(id);
         if (candle.isPresent()) {
-            List<Candle> similarByAroma = candleRepository.findAllByAroma(candle.get().getAroma());
+            List<Candle> similarByAroma = candleRepository.findAllByAromaEn(candle.get().getAromaEn());
             List<Candle> similarByVolume = candleRepository.findAllByVolume(candle.get().getVolume());
             List<Candle> similarBySlug = candleRepository.findAllBySlug(candle.get().getSlug());
             return List.of(similarByAroma, similarByVolume, similarBySlug).stream().flatMap(List::stream)

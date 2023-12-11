@@ -13,18 +13,24 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CandleDto extends RepresentationModel<CandleDto> {
     private String id;
-    private String title;
-    private String name;
+    private String titleEn;
+    private String titleUa;
+    private String nameEn;
+    private String nameUa;
     private String wax;
     private String slug;
-    private Aroma aroma;
+    private Aroma aromaEn;
+    private Aroma aromaUa;
     private String wick;
     private Integer wicks;
     private String container;
     private String volume;
     private BigDecimal price;
-    private String description;
-    private String containerColor;
-    private String waxColor;
+    private String descriptionEn;
+    private String descriptionUa;
+    private String containerColorEn;
+    private String containerColorUa;
+    private String waxColorEn;
+    private String waxColorUa;
     private String image;
 }

@@ -17,11 +17,20 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "candles", path = "candles")
 public interface CandleRepository extends MongoRepository<Candle, String>, QuerydslPredicateExecutor<Candle>,
         QuerydslBinderCustomizer<QCandle> {
-    @Query("{ '$or': [ { 'name' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'title' : { '$regex': ?0, '$options': 'i' } }, " +
+    @Query("{ '$or': [ " +
+            "{ 'nameEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'nameUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'titleEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'titleUa' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'volume' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'description' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'wick' : { '$regex': ?0, '$options': 'i' } } ] }")
+            "{ 'descriptionEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'descriptionUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'containerColorEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'containerColorUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'waxColorEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'waxColorUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'wick' : { '$regex': ?0, '$options': 'i' } } " +
+            "] }")
     List<Candle> searchByPattern(String pattern);
 
     @Override
@@ -31,7 +40,7 @@ public interface CandleRepository extends MongoRepository<Candle, String>, Query
     }
 
     @RestResource(exported = false)
-    List<Candle> findAllByAroma(Aroma aroma);
+    List<Candle> findAllByAromaEn(Aroma aromaEn);
     @RestResource(exported = false)
     List<Candle> findAllByVolume(String volume);
     @RestResource(exported = false)

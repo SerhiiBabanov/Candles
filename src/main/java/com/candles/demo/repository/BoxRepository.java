@@ -17,11 +17,16 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "boxes", path = "boxes")
 public interface BoxRepository extends MongoRepository<Box, String>, QuerydslPredicateExecutor<Box>,
         QuerydslBinderCustomizer<QBox> {
-    @Query("{ '$or': [ { 'name' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'title' : { '$regex': ?0, '$options': 'i' } }, " +
+    @Query("{ '$or': [ " +
+            "{ 'nameEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'nameUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'titleEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'titleUa' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'volume' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'description' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'wick' : { '$regex': ?0, '$options': 'i' } } ] }")
+            "{ 'descriptionEn' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'descriptionUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'wick' : { '$regex': ?0, '$options': 'i' } } " +
+            "] }")
     List<Box> searchByPattern(String pattern);
 
     @Override

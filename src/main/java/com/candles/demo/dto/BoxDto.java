@@ -13,11 +13,15 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class BoxDto extends RepresentationModel<BoxDto> {
     private String id;
-    private String title;
-    private String name;
+    private String titleEn;
+    private String titleUa;
+    private String nameEn;
+    private String nameUa;
     private String volume;
     private BigDecimal price;
-    private String description;
-    private Kit kit;
+    private String descriptionEn;
+    private String descriptionUa;
+    private Kit kitEn;
+    private Kit kitUa;
     private String image;
 }
