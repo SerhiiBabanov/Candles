@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,5 +26,5 @@ public class Box {
     private String descriptionUa;
     private Kit kitEn;
     private Kit kitUa;
-    private String image;
+    private List<String> images;
 }
