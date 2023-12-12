@@ -36,7 +36,7 @@ public class CandleController implements RepresentationModelProcessor<Repository
         if (!file.isEmpty()) {
             try {
                 String filePath = fileService.write(file);
-                candle.setImage(filePath);
+                candle.getImages().add(filePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }

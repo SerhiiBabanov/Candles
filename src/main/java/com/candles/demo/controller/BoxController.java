@@ -34,7 +34,7 @@ public class BoxController implements RepresentationModelProcessor<RepositoryLin
         if (!file.isEmpty()) {
             try {
                 String filePath = fileService.write(file);
-                box.setImage(filePath);
+                box.getImages().add(filePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
