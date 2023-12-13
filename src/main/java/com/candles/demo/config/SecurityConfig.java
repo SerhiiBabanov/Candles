@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/candles/**")
                 .requestMatchers(HttpMethod.GET, "/boxes/**")
                 .requestMatchers(HttpMethod.POST, "/search/**")
-                .requestMatchers(HttpMethod.POST, "/subscription/**")
+                .requestMatchers(HttpMethod.GET, "/subscription/**")
                 .requestMatchers(HttpMethod.GET, "/photos/**");
     }
 
