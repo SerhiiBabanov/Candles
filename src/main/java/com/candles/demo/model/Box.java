@@ -19,6 +19,7 @@ public class Box {
     private String titleEn;
     private String titleUa;
     private String nameEn;
+    private String slug;
     private String nameUa;
     private String volume;
     private BigDecimal price;
