@@ -29,7 +29,8 @@ public interface CandleRepository extends MongoRepository<Candle, String>, Query
             "{ 'containerColorUa' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'waxColorEn' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'waxColorUa' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'wick' : { '$regex': ?0, '$options': 'i' } } " +
+            "{ 'wick' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'wax' : { '$regex': ?0, '$options': 'i' } } " +
             "] }")
     List<Candle> searchByPattern(String pattern);
 
