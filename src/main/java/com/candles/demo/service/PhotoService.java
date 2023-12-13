@@ -21,6 +21,9 @@ public class PhotoService {
                 new Binary(BsonBinarySubType.BINARY, file.getBytes()));
         photo = photoRepository.insert(photo); return photo.getId();
     }
+    public String addPhoto(MultipartFile file) throws IOException {
+        return addPhoto(file.getOriginalFilename(), file);
+    }
 
     public Photo getPhoto(String id) {
         return photoRepository.findById(id).orElse(null);

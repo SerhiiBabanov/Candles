@@ -6,4 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "subscription", path = "subscription")
 public interface EmailSubscriptionRepository extends MongoRepository<EmailSubscription, String> {
+    void deleteByEmail(String email);
 }

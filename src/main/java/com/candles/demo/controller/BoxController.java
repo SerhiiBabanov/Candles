@@ -2,8 +2,10 @@ package com.candles.demo.controller;
 
 import com.candles.demo.model.Box;
 import com.candles.demo.repository.BoxRepository;
-import com.candles.demo.service.FileService;
+import com.candles.demo.service.BoxServices;
+import com.candles.demo.service.PhotoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
@@ -23,23 +25,27 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequiredArgsConstructor
 public class BoxController implements RepresentationModelProcessor<RepositoryLinksResource> {
     private final BoxRepository boxRepository;
-    private final FileService fileService;
+    private final PhotoService photoService;
+    private final BoxServices boxServices;
+
     @PostMapping("/create")
     public void createCandle(HttpServletResponse response,
                              @RequestParam("model") String model,
-                             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+                             @RequestParam(value = "file", required = false) MultipartFile file,
+                             HttpServletRequest request) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Box box = objectMapper.readValue(model, Box.class);
-
+        Box savedBox = boxRepository.save(box);
         if (!file.isEmpty()) {
             try {
-                String filePath = fileService.write(file);
-                box.getImages().add(filePath);
+                String photoId = photoService.addPhoto(file);
+                String url = String.format("%s://%s:%d", request.getScheme(), request.getServerName(), request.getServerPort());
+                url += "/photos/" + photoId;
+                boxServices.addPhoto(savedBox.getId(), url);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        Box savedBox = boxRepository.save(box);
         response.sendRedirect("/boxes/" + savedBox.getId());
     }
 

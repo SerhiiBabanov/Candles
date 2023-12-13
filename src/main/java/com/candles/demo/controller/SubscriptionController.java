@@ -5,6 +5,7 @@ import com.candles.demo.repository.EmailSubscriptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +20,20 @@ public class SubscriptionController implements RepresentationModelProcessor<Repo
     private final EmailSubscriptionRepository emailSubscriptionRepository;
 
     @PostMapping("/subscribe")
-    public void subscribe(@ModelAttribute EmailSubscription email) {
-        emailSubscriptionRepository.save(email);
+    public ResponseEntity<String> subscribe(@ModelAttribute EmailSubscription email) {
+
+        try {
+            emailSubscriptionRepository.save(email);
+        } catch (RuntimeException e) {  // DuplicateKeyException
+            return ResponseEntity.badRequest().body("Already subscribed");
+        }
+        return ResponseEntity.ok("Subscribed");
     }
 
     @PostMapping("/unsubscribe")
-    public void unsubscribe(@ModelAttribute EmailSubscription email) {
-        emailSubscriptionRepository.delete(email);
+    public ResponseEntity<String> unsubscribe(@ModelAttribute EmailSubscription email) {
+        emailSubscriptionRepository.deleteByEmail(email.getEmail());
+        return ResponseEntity.ok("Unsubscribed");
     }
 
     @Override

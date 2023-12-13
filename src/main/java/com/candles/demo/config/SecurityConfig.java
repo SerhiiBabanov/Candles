@@ -41,7 +41,7 @@ public class SecurityConfig {
         return (web) -> web.ignoring()
                 .requestMatchers(HttpMethod.GET, "/candles/**")
                 .requestMatchers(HttpMethod.GET, "/boxes/**")
-                .requestMatchers(HttpMethod.POST, "/subscribe/**")
+                .requestMatchers(HttpMethod.POST, "/subscription/**")
                 .requestMatchers(HttpMethod.GET, "/photos/**");
     }
 

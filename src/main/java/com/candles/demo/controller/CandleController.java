@@ -2,8 +2,10 @@ package com.candles.demo.controller;
 
 import com.candles.demo.model.Candle;
 import com.candles.demo.repository.CandleRepository;
-import com.candles.demo.service.FileService;
+import com.candles.demo.service.CandleService;
+import com.candles.demo.service.PhotoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
@@ -24,25 +26,28 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class CandleController implements RepresentationModelProcessor<RepositoryLinksResource> {
 
     private final CandleRepository candleRepository;
-    private final FileService fileService;
+    private final PhotoService photoService;
+    private final CandleService candleService;
 
     @PostMapping("/create")
     public void createCandle(HttpServletResponse response,
                              @RequestParam("model") String model,
-                             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+                             @RequestParam(value = "file", required = false) MultipartFile file,
+                             HttpServletRequest request) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Candle candle = objectMapper.readValue(model, Candle.class);
-
+        Candle savedCandle = candleRepository.save(candle);
         if (!file.isEmpty()) {
             try {
-                String filePath = fileService.write(file);
-                candle.getImages().add(filePath);
+                String photoId = photoService.addPhoto(file);
+                String url = String.format("%s://%s:%d", request.getScheme(), request.getServerName(), request.getServerPort());
+                url += "/photos/" + photoId;
+                candleService.addPhoto(savedCandle.getId(), url);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        Candle savesCandle = candleRepository.save(candle);
-        response.sendRedirect("/candles/" + savesCandle.getId());
+        response.sendRedirect("/candles/" + savedCandle.getId());
     }
 
     @Override
