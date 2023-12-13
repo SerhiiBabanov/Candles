@@ -21,6 +21,9 @@ public class AuthenticationService {
 
     public Authentication getAuthentication(HttpServletRequest request) {
         String apiKey = request.getHeader(authTokenHeaderName);
+        if (request.getDispatcherType().equals(jakarta.servlet.DispatcherType.ERROR)) {
+            return new ApiKeyAuthentication(apiKey, AuthorityUtils.NO_AUTHORITIES);
+        }
         if (apiKey == null || !apiKey.equals(authToken)) {
             throw new BadCredentialsException("Invalid API Key");
         }

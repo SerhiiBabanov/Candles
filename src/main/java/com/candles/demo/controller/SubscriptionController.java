@@ -2,6 +2,7 @@ package com.candles.demo.controller;
 
 import com.candles.demo.model.EmailSubscription;
 import com.candles.demo.repository.EmailSubscriptionRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
@@ -20,7 +21,7 @@ public class SubscriptionController implements RepresentationModelProcessor<Repo
     private final EmailSubscriptionRepository emailSubscriptionRepository;
 
     @PostMapping("/subscribe")
-    public ResponseEntity<String> subscribe(@ModelAttribute EmailSubscription email) {
+    public ResponseEntity<String> subscribe(@Valid @ModelAttribute EmailSubscription email) {
 
         try {
             emailSubscriptionRepository.save(email);
