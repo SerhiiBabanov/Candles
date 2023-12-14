@@ -1,6 +1,7 @@
 package com.candles.demo.controller;
 
 import com.candles.demo.model.Box;
+import com.candles.demo.model.validator.BoxValidator;
 import com.candles.demo.repository.BoxRepository;
 import com.candles.demo.service.BoxServices;
 import com.candles.demo.service.PhotoService;
@@ -8,8 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,14 +30,20 @@ public class BoxController implements RepresentationModelProcessor<RepositoryLin
     private final BoxRepository boxRepository;
     private final PhotoService photoService;
     private final BoxServices boxServices;
+    private final BoxValidator boxValidator;
 
     @PostMapping("/create")
-    public void createCandle(HttpServletResponse response,
-                             @RequestParam("model") String model,
-                             @RequestParam(value = "file", required = false) MultipartFile file,
-                             HttpServletRequest request) throws IOException {
+    public void createBox(HttpServletResponse response,
+                          @RequestParam("model") String model,
+                          @RequestParam(value = "file", required = false) MultipartFile file,
+                          HttpServletRequest request) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Box box = objectMapper.readValue(model, Box.class);
+        BeanPropertyBindingResult result = new BeanPropertyBindingResult(box, "box");
+        boxValidator.validate(box, result);
+        if (result.hasErrors()) {
+            throw new RepositoryConstraintViolationException(result);
+        }
         Box savedBox = boxRepository.save(box);
         if (!file.isEmpty()) {
             try {
