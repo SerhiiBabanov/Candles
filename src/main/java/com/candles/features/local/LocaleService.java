@@ -10,7 +10,7 @@ public class LocaleService {
                 return false;
             }
         }
-        if (s.matches("[A-Za-z]+")) {
+        if (s.matches("[A-Za-z ]+")) {
             return true;
         }
         return false;
