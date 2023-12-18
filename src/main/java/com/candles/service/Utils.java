@@ -14,6 +14,6 @@ public class Utils {
                 .orElse(null);
     }
     public static boolean checkInputStringForError(String input) {
-        return (input == null || input.trim().length() == 0);
+        return (input == null || input.trim().isEmpty());
     }
 }

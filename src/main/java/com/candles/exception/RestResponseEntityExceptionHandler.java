@@ -1,5 +1,6 @@
 package com.candles.exception;
 
+import com.candles.features.loadDataInDb.WrongDataFormatException;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,18 @@ public class RestResponseEntityExceptionHandler extends
 
     @ExceptionHandler({ RepositoryConstraintViolationException.class })
     public ResponseEntity<Object> handleAccessDeniedException(
+            Exception ex, WebRequest request) {
+        RepositoryConstraintViolationException nevEx =
+                (RepositoryConstraintViolationException) ex;
+
+        String errors = nevEx.getErrors().getAllErrors().stream()
+                .map(ObjectError::toString).collect(Collectors.joining("\n"));
+
+        return new ResponseEntity<>(errors, new HttpHeaders(),
+                HttpStatus.PARTIAL_CONTENT);
+    }
+    @ExceptionHandler({ WrongDataFormatException.class })
+    public ResponseEntity<Object> handleWrongDataFormatException(
             Exception ex, WebRequest request) {
         RepositoryConstraintViolationException nevEx =
                 (RepositoryConstraintViolationException) ex;
