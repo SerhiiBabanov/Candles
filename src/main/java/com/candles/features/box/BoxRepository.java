@@ -17,13 +17,14 @@ import java.util.List;
 public interface BoxRepository extends MongoRepository<BoxEntity, String>, QuerydslPredicateExecutor<BoxEntity>,
         QuerydslBinderCustomizer<QBoxEntity> {
     @Query("{ '$or': [ " +
-            "{ 'nameEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'nameUa' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'titleEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'titleUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'name.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'title.value' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'volume' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'descriptionEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'descriptionUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'description.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'price' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'kit.aromaToChoose.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'kit.container.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'kit.matchsticks' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'wick' : { '$regex': ?0, '$options': 'i' } } " +
             "] }")
     List<BoxEntity> searchByPattern(String pattern);

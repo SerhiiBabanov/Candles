@@ -16,17 +16,13 @@ import java.util.List;
 public interface CandleRepository extends MongoRepository<CandleEntity, String>, QuerydslPredicateExecutor<CandleEntity>,
         QuerydslBinderCustomizer<QCandleEntity> {
     @Query("{ '$or': [ " +
-            "{ 'nameEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'nameUa' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'titleEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'titleUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'name.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'title.value' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'volume' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'descriptionEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'descriptionUa' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'containerColorEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'containerColorUa' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'waxColorEn' : { '$regex': ?0, '$options': 'i' } }, " +
-            "{ 'waxColorUa' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'description.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'containerColor.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'aroma.name.value' : { '$regex': ?0, '$options': 'i' } }, " +
+            "{ 'waxColor.value' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'wick' : { '$regex': ?0, '$options': 'i' } }, " +
             "{ 'wax' : { '$regex': ?0, '$options': 'i' } } " +
             "] }")

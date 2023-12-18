@@ -23,7 +23,7 @@ public class SearchController{
 
     @GetMapping
     public List<SearchResult> search(@RequestParam(name = "q") String pattern) {
-        Local local = LocaleService.isEnLocale(pattern) ?
+        Local local = LocaleService.isEnSymbolOnly(pattern) ?
                 Local.EN : Local.UA;
         Stream<SearchResult> candles = candleRepository.searchByPattern(pattern).stream()
                 .map(candle -> new SearchResult(candle, local));

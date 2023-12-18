@@ -8,7 +8,7 @@ class LocaleServiceTest {
 
     @Test
     void isEnLocale() {
-        assertTrue(LocaleService.isEnLocale("Test"));
-        assertFalse(LocaleService.isEnLocale("Тест"));
+        assertTrue(LocaleService.isEnSymbolOnly("Test"));
+        assertFalse(LocaleService.isEnSymbolOnly("Тест"));
     }
 }
