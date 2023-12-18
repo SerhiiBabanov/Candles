@@ -12,14 +12,14 @@
     <artifactId>Candles</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Candles</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Store project for Spring Boot</description>
     <properties>
         <java.version>17</java.version>
         <jquerydsl.version>4.4.0</jquerydsl.version>
         <lombok.version>1.18.30</lombok.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
-        <start-class>com.candles.demo.DemoApplication</start-class>
+        <start-class>com.candles.Application</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -142,7 +142,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.candles.demo.DemoApplication</mainClass>
+                    <mainClass>com.candles.Application</mainClass>
                     <layout>JAR</layout>
                 </configuration>
                 <executions>
