@@ -53,7 +53,7 @@ public class PhotoController {
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.IMAGE_PNG_VALUE)
-    public @ResponseBody byte[] getPhoto(@PathVariable String id) throws IOException {
+    public @ResponseBody byte[] getPhoto(@PathVariable(name = "id") String id) throws IOException {
         Photo photo = photoService.getPhoto(id);
         if (Objects.isNull(photo)) {
             return new byte[0];
