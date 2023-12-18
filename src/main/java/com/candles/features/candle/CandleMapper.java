@@ -21,7 +21,7 @@ public class CandleMapper {
         candleModel.setAroma(aromaMapper.toModel(candleEntity.getAroma(), local));
         candleModel.setWick(candleEntity.getWick());
         candleModel.setWicks(candleEntity.getWicks());
-        candleModel.setContainer(Utils.getPropertyByLocal(candleEntity.getContainer(), local));
+        candleModel.setContainer(candleEntity.getContainer());
         candleModel.setVolume(candleEntity.getVolume());
         candleModel.setPrice(candleEntity.getPrice());
         candleModel.setDescription(Utils.getPropertyByLocal(candleEntity.getDescription(), local));

@@ -50,7 +50,7 @@ public class InitTestDataService {
         candleEntity.setWax("Test Wax");
         candleEntity.setWick("Test Wick");
         candleEntity.setWicks(1);
-        candleEntity.setContainer(Arrays.asList(new Pair(Local.EN, "Container EN"), new Pair(Local.UA, "Container UA")));
+        candleEntity.setContainer("Container EN");
         candleEntity.setSlug("Test Slug");
         candleEntity.setDescription(Arrays.asList(new Pair(Local.EN, "Description EN"), new Pair(Local.UA, "Description UA")));
         candleEntity.setContainerColor(Arrays.asList(new Pair(Local.EN, "Container color EN"), new Pair(Local.UA, "Container color UA")));

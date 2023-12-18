@@ -26,7 +26,7 @@ public class CandleEntity {
     private Aroma aroma;
     private String wick;
     private Integer wicks;
-    private List<Pair> container = new ArrayList<>();
+    private String container;
     private String volume;
     private BigDecimal price;
     private List<Pair> description = new ArrayList<>();

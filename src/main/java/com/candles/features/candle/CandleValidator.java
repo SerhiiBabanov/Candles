@@ -33,7 +33,7 @@ public class CandleValidator implements Validator {
         if (checkListOfPairForError(candleEntity.getAroma().getName())) {
             errors.rejectValue("aroma", "aromaEn.empty");
         }
-        if (checkListOfPairForError(candleEntity.getContainer())) {
+        if (checkInputStringForError(candleEntity.getContainer())) {
             errors.rejectValue("container", "container.empty");
         }
         if (checkInputStringForError(candleEntity.getVolume())) {
