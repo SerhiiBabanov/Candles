@@ -25,8 +25,8 @@ public class CandleController {
     private final CandleModelAssembler candleModelAssembler;
 
     @GetMapping
-    public ResponseEntity<PagedModel<CandleModel>> getAll(@RequestParam(name = "local", defaultValue = "UA", required = false)
-                                                              Local local,
+    public ResponseEntity<PagedModel<CandleModel>> getAll(@RequestParam(name = "lang", defaultValue = "UA", required = false)
+                                                              Local lang,
                                                           @QuerydslPredicate(root = CandleEntity.class)
                                                           Predicate predicate,
                                                           @RequestParam(name = "page", defaultValue = "0", required = false)
@@ -38,7 +38,7 @@ public class CandleController {
                                                           Pageable pageable) {
         Page<CandleModel> candleModels = candleService.getAllCandles(predicate,
                         pageable)
-                .map(candle -> candleMapper.toModel(candle, local));
+                .map(candle -> candleMapper.toModel(candle, lang));
         PagedModel<CandleModel> pagedModel = pagedResourcesAssembler.toModel(candleModels, candleModelAssembler);
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
 
@@ -46,8 +46,8 @@ public class CandleController {
 
     @GetMapping("/{id}")
     public CandleModel getById(@PathVariable(name = "id") String id,
-                               @RequestParam(name = "local", defaultValue = "UA") Local local) {
-        CandleModel candleModel = candleMapper.toModel(candleService.getCandleById(id), local);
+                               @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
+        CandleModel candleModel = candleMapper.toModel(candleService.getCandleById(id), lang);
         candleModel.add(linkTo(CandleController.class).slash(candleModel.getId()).withSelfRel());
         return candleModel;
     }

@@ -24,8 +24,8 @@ public class BoxController {
     private final BoxModelAssembler boxModelAssembler;
 
     @GetMapping
-    public ResponseEntity<PagedModel<BoxModel>> getAll(@RequestParam(name = "local", defaultValue = "UA", required = false)
-                                                           Local local,
+    public ResponseEntity<PagedModel<BoxModel>> getAll(@RequestParam(name = "lang", defaultValue = "UA", required = false)
+                                                           Local lang,
                                                        @QuerydslPredicate(root = BoxEntity.class)
                                                        Predicate predicate,
                                                        @RequestParam(name = "page", defaultValue = "0", required = false)
@@ -37,15 +37,15 @@ public class BoxController {
                                                        Pageable pageable) {
         Page<BoxModel> boxModels = boxService.getAllBoxes(predicate,
                         pageable)
-                .map(box -> boxMapper.toModel(box, local));
+                .map(box -> boxMapper.toModel(box, lang));
         PagedModel<BoxModel> pagedModel = pagedResourcesAssembler.toModel(boxModels, boxModelAssembler);
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public BoxModel getById(@PathVariable(name = "id") String id,
-                            @RequestParam(name = "local", defaultValue = "UA") Local local) {
-        BoxModel boxModel = boxMapper.toModel(boxService.getBoxById(id), local);
+                            @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
+        BoxModel boxModel = boxMapper.toModel(boxService.getBoxById(id), lang);
         boxModel.add(linkTo(BoxController.class).slash(boxModel.getId()).withSelfRel());
         return boxModel;
     }

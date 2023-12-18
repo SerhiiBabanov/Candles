@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 public class BoxMapper {
     private final KitMapper kitMapper;
 
-    public BoxModel toModel(BoxEntity boxEntity, Local local) {
+    public BoxModel toModel(BoxEntity boxEntity, Local lang) {
         BoxModel boxModel = new BoxModel();
         boxModel.setId(boxEntity.getId());
-        boxModel.setTitle(Utils.getPropertyByLocal(boxEntity.getTitle(), local));
-        boxModel.setName(Utils.getPropertyByLocal(boxEntity.getName(), local));
+        boxModel.setTitle(Utils.getPropertyByLocal(boxEntity.getTitle(), lang));
+        boxModel.setName(Utils.getPropertyByLocal(boxEntity.getName(), lang));
         boxModel.setSlug(boxEntity.getSlug());
         boxModel.setVolume(boxEntity.getVolume());
         boxModel.setPrice(boxEntity.getPrice());
-        boxModel.setDescription(Utils.getPropertyByLocal(boxEntity.getDescription(), local));
-        boxModel.setKit(kitMapper.toModel(boxEntity.getKit(), local));
+        boxModel.setDescription(Utils.getPropertyByLocal(boxEntity.getDescription(), lang));
+        boxModel.setKit(kitMapper.toModel(boxEntity.getKit(), lang));
         boxModel.setImages(boxEntity.getImages());
         return boxModel;
     }

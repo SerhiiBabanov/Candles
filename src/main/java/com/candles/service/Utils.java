@@ -6,9 +6,9 @@ import com.candles.model.Pair;
 import java.util.List;
 
 public class Utils {
-    public static String getPropertyByLocal(List<Pair> pairs, Local local) {
+    public static String getPropertyByLocal(List<Pair> pairs, Local lang) {
         return pairs.stream()
-                .filter(pair -> pair.getKey().equals(local))
+                .filter(pair -> pair.getKey().equals(lang))
                 .map(Pair::getValue)
                 .findFirst()
                 .orElse(null);

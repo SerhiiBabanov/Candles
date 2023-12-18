@@ -32,9 +32,9 @@ public class SimilarProductsController {
 
     @GetMapping("/candles")
     public ResponseEntity<CollectionModel<CandleModel>> getCandles(@RequestParam(name = "id") String id,
-                                                                   @RequestParam(name = "local", defaultValue = "UA") Local local) {
+                                                                   @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
         List<CandleModel> candles = candleService.getSimilarCandles(id).stream()
-                .map(candle -> candleMapper.toModel(candle, local))
+                .map(candle -> candleMapper.toModel(candle, lang))
                 .peek(candle -> candle.add(linkTo(CandleController.class).slash(candle.getId()).withSelfRel()))
                 .toList();
         return ResponseEntity.ok(CollectionModel.of(candles));
@@ -42,9 +42,9 @@ public class SimilarProductsController {
 
     @GetMapping("/boxes")
     public ResponseEntity<CollectionModel<BoxModel>> getBoxes(@RequestParam(name = "id") String id,
-                                                              @RequestParam(name = "local", defaultValue = "UA") Local local) {
+                                                              @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
         List<BoxModel> boxes = boxService.getSimilarBoxes(id).stream()
-                .map(box -> boxMapper.toModel(box, local))
+                .map(box -> boxMapper.toModel(box, lang))
                 .peek(box -> box.add(linkTo(BoxController.class).slash(box.getId()).withSelfRel()))
                 .toList();
         return ResponseEntity.ok(CollectionModel.of(boxes));

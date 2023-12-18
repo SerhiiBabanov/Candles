@@ -19,10 +19,10 @@ public class SearchResult {
     private BigDecimal price;
     private List<String> images;
 
-    public SearchResult(BoxEntity boxEntity, Local locale) {
+    public SearchResult(BoxEntity boxEntity, Local lang) {
         this.id = boxEntity.getId();
         this.title = boxEntity.getTitle().stream()
-                .filter(pair -> pair.getKey().equals(locale))
+                .filter(pair -> pair.getKey().equals(lang))
                 .map(Pair::getValue)
                 .findFirst()
                 .orElse(null);
@@ -31,10 +31,10 @@ public class SearchResult {
         this.images = boxEntity.getImages();
     }
 
-    public SearchResult(CandleEntity candleEntity, Local locale) {
+    public SearchResult(CandleEntity candleEntity, Local lang) {
         this.id = candleEntity.getId();
         this.title = candleEntity.getTitle().stream()
-                .filter(pair -> pair.getKey().equals(locale))
+                .filter(pair -> pair.getKey().equals(lang))
                 .map(Pair::getValue)
                 .findFirst()
                 .orElse(null);

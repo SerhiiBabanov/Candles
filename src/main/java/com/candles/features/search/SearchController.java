@@ -22,14 +22,18 @@ public class SearchController{
     private final CandleRepository candleRepository;
 
     @GetMapping
-    public List<SearchResult> search(@RequestParam(name = "q") String pattern) {
-        Local local = LocaleService.isEnSymbolOnly(pattern) ?
-                Local.EN : Local.UA;
+    public List<SearchResult> search(@RequestParam(name = "q") String pattern,
+                                     @RequestParam(name = "lang", required = false) Local lang) {
+        if (lang == null) {
+            lang = LocaleService.isEnSymbolOnly(pattern) ?
+                    Local.EN : Local.UA;
+        }
+        Local finalLang = lang;
         Stream<SearchResult> candles = candleRepository.searchByPattern(pattern).stream()
-                .map(candle -> new SearchResult(candle, local));
+                .map(candle -> new SearchResult(candle, finalLang));
 
         Stream<SearchResult> boxes = boxRepository.searchByPattern(pattern).stream()
-                .map(box -> new SearchResult(box, local));
+                .map(box -> new SearchResult(box, finalLang));
         return Stream.concat(boxes, candles).collect(Collectors.toList());
     }
 }
