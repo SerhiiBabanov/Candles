@@ -15,12 +15,13 @@ public class PhotoService {
     public String addPhoto(String title, MultipartFile file) throws IOException {
         PhotoEntity photoEntity = new PhotoEntity();
         photoEntity.setTitle(title);
+        photoEntity.setId(file.getOriginalFilename());
         photoEntity.setImage(
                 new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-        photoEntity = photoRepository.insert(photoEntity); return photoEntity.getId();
+        photoEntity = photoRepository.save(photoEntity); return photoEntity.getId();
     }
-    public String addPhoto(MultipartFile file) throws IOException {
-        return addPhoto(file.getOriginalFilename(), file);
+    public void addPhoto(MultipartFile file) throws IOException {
+        addPhoto(file.getOriginalFilename(), file);
     }
 
     public PhotoEntity getPhoto(String id) {
