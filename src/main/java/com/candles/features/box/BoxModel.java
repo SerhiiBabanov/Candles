@@ -22,6 +22,7 @@ public class BoxModel extends RepresentationModel<BoxModel> {
     private String volume;
     private BigDecimal price;
     private String description;
+    private String text;
     private KitModel kit;
     private List<String> images;
 }
