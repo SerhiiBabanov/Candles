@@ -13,6 +13,7 @@ public class Order {
     private String id;
     private Customer customer;
     private List<Item> items;
+    private List<CustomCandle> customCandles;
     private BigDecimal total;
     private Boolean payed;
     private String date;
