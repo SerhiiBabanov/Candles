@@ -74,12 +74,61 @@ public class OrderValidatorService {
                 }
                 total = total.add(price.multiply(BigDecimal.valueOf(item.getQuantity())));
             }
+            if (order.getCustomCandles() != null && !order.getCustomCandles().isEmpty()) {
+                for (CustomCandle candle : order.getCustomCandles()) {
+                    total = total.add(candle.getPrice().multiply(BigDecimal.valueOf(candle.getQuantity())));
+                }
+            }
             if (order.getTotal().compareTo(total) != 0) {
                 errors.add("Total is not correct");
             }
         }
         if (order.getDate() == null) {
             errors.add("Date is null");
+        }
+        if (order.getCustomCandles() != null && !order.getCustomCandles().isEmpty()){
+            for (CustomCandle candle : order.getCustomCandles()) {
+                if (candle.getContainer() == null) {
+                    errors.add("Box is null");
+                } else if (candle.getContainer().isEmpty()) {
+                    errors.add("Box is empty");
+                }
+                if (candle.getWax() == null) {
+                    errors.add("Wax is null");
+                } else if (candle.getWax().isEmpty()) {
+                    errors.add("Wax is empty");
+                }
+                if (candle.getAroma() == null) {
+                    errors.add("Aroma name is null");
+                } else if (candle.getAroma().isEmpty()) {
+                    errors.add("Aroma name is empty");
+                }
+                if (candle.getWicks() == null) {
+                    errors.add("Wicks is null");
+                } else if (candle.getWicks() <= 0 || candle.getWicks() > 3) {
+                    errors.add("Wicks is less than 0 or more than 3");
+                }
+                if (candle.getColor() == null) {
+                    errors.add("Wax color is null");
+                } else if (candle.getColor().isEmpty()) {
+                    errors.add("Wax color is empty");
+                }
+                if (candle.getPrice() == null) {
+                    errors.add("Price is null");
+                } else if (candle.getPrice().compareTo(BigDecimal.valueOf(0)) <= 0) {
+                    errors.add("Price is less than 0");
+                }
+                if (candle.getQuantity() == null) {
+                    errors.add("Quantity is null");
+                } else if (candle.getQuantity() <= 0) {
+                    errors.add("Quantity is less than 0");
+                }
+                if (candle.getTotal() == null) {
+                    errors.add("Total is null");
+                } else if (candle.getTotal().compareTo(BigDecimal.valueOf(0)) <= 0) {
+                    errors.add("Total is less than 0");
+                }
+            }
         }
         return errors;
     }
