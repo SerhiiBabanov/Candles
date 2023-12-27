@@ -7,13 +7,18 @@ import com.candles.features.candle.CandleEntity;
 import com.candles.features.candle.CandleRepository;
 import com.candles.features.candle.aroma.Aroma;
 import com.candles.features.local.Local;
+import com.candles.features.order.Customer;
+import com.candles.features.order.Item;
+import com.candles.features.order.Order;
 import com.candles.model.Pair;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 //@Component
 @RequiredArgsConstructor
@@ -82,6 +87,44 @@ public class InitTestDataService {
         aroma.getBaseNotes().add(Arrays.asList(new Pair(Local.UA, "Base note UA"), new Pair(Local.EN, "Base note EN")));
         aroma.getTopNotes().add(Arrays.asList(new Pair(Local.UA, "Top note UA"), new Pair(Local.EN, "Top note EN")));
         return aroma;
+    }
+
+    public static Order getOrder() {
+        Item box = new Item();
+        box.setId("boxId");
+        box.setCategory("box");
+        box.setName("boxName");
+        box.setDescription("boxDescription");
+        box.setPrice(BigDecimal.valueOf(100));
+        box.setQuantity(1);
+        box.setTotal(BigDecimal.valueOf(100).multiply(BigDecimal.valueOf(1)));
+
+        Item candle = new Item();
+        candle.setId("candle");
+        candle.setCategory("candleType");
+        candle.setName("candleName");
+        candle.setDescription("candleDescription");
+        candle.setPrice(BigDecimal.valueOf(100));
+        candle.setQuantity(1);
+        candle.setTotal(BigDecimal.valueOf(100).multiply(BigDecimal.valueOf(1)));
+
+        Customer customer = new Customer();
+        customer.setFirstName("firstName");
+        customer.setLastName("lastName");
+        customer.setEmail("email");
+        customer.setPhone("phone");
+        customer.setAddress("address");
+
+        Order order = new Order();
+        List<Item> items = new ArrayList<>();
+        items.add(box);
+        items.add(candle);
+        order.setItems(items);
+        order.setCustomer(customer);
+        order.setTotal(BigDecimal.valueOf(200));
+        order.setPayed(false);
+        order.setDate("date");
+        return order;
     }
 
 }
