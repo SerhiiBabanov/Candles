@@ -36,6 +36,9 @@ public class BoxValidator implements Validator {
         if (checkListOfPairForError(boxEntity.getDescription())) {
             errors.rejectValue("description", "descriptionEn.empty");
         }
+        if (checkListOfPairForError(boxEntity.getText())) {
+            errors.rejectValue("text", "text.empty");
+        }
         if (checkListOfPairForError(boxEntity.getKit().getContainer())) {
             errors.rejectValue("kit", "kitEn.empty");
         }

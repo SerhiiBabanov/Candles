@@ -42,4 +42,7 @@ public interface CandleRepository extends MongoRepository<CandleEntity, String>,
 
     @RestResource(exported = false)
     List<CandleEntity> findAllBySlug(String slug);
+
+    @RestResource(exported = false)
+    List<CandleEntity> findAllByIdIn(List<String> ids);
 }

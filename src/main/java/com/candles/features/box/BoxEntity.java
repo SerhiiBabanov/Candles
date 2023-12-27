@@ -21,6 +21,7 @@ public class BoxEntity {
     private String volume;
     private BigDecimal price;
     private List<Pair> description = new ArrayList<>();
+    private List<Pair> text = new ArrayList<>();
     private Kit kit;
     private List<String> images;
 }

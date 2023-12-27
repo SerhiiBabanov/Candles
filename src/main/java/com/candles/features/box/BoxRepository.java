@@ -40,4 +40,7 @@ public interface BoxRepository extends MongoRepository<BoxEntity, String>, Query
 
     @RestResource(exported = false)
     List<BoxEntity> findAllByVolume(String volume);
+
+    @RestResource(exported = false)
+    List<BoxEntity> findAllByIdIn(List<String> ids);
 }

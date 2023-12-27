@@ -20,6 +20,7 @@ public class BoxMapper {
         boxModel.setVolume(boxEntity.getVolume());
         boxModel.setPrice(boxEntity.getPrice());
         boxModel.setDescription(Utils.getPropertyByLocal(boxEntity.getDescription(), lang));
+        boxModel.setText(Utils.getPropertyByLocal(boxEntity.getText(), lang));
         boxModel.setKit(kitMapper.toModel(boxEntity.getKit(), lang));
         boxModel.setImages(boxEntity.getImages());
         return boxModel;

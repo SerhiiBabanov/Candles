@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
@@ -26,7 +28,7 @@ public class CandleController {
 
     @GetMapping
     public ResponseEntity<PagedModel<CandleModel>> getAll(@RequestParam(name = "lang", defaultValue = "UA", required = false)
-                                                              Local lang,
+                                                          Local lang,
                                                           @QuerydslPredicate(root = CandleEntity.class)
                                                           Predicate predicate,
                                                           @RequestParam(name = "page", defaultValue = "0", required = false)
@@ -42,6 +44,17 @@ public class CandleController {
         PagedModel<CandleModel> pagedModel = pagedResourcesAssembler.toModel(candleModels, candleModelAssembler);
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/by-id-in")
+    public ResponseEntity<List<CandleModel>> getAllByIdIn(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
+                                                          @RequestBody List<String> ids) {
+        List<CandleModel> candleModels = candleService.getAllCandlesByIdIn(ids)
+                .stream()
+                .map(box -> candleMapper.toModel(box, lang))
+                .peek(candleModel -> candleModel.add(linkTo(CandleController.class).slash(candleModel.getId()).withSelfRel()))
+                .toList();
+        return new ResponseEntity<>(candleModels, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

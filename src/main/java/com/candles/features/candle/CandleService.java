@@ -41,6 +41,10 @@ public class CandleService {
         return candle.orElse(null);
     }
 
+    public List<CandleEntity> getAllCandlesByIdIn(List<String> ids) {
+        return candleRepository.findAllByIdIn(ids);
+    }
+
     public List<CandleEntity> getSimilarCandles(String id) {
         Optional<CandleEntity> candle = candleRepository.findById(id);
         Local local = Local.EN;

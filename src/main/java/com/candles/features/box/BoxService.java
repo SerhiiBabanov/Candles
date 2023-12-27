@@ -35,6 +35,9 @@ public class BoxService {
         return boxRepository.findAll(predicate,
                 pageable);
     }
+    public List<BoxEntity> getAllBoxesByIdIn(List<String> ids) {
+        return boxRepository.findAllByIdIn(ids);
+    }
 
     public BoxEntity getBoxById(String id) {
         Optional<BoxEntity> box = boxRepository.findById(id);
@@ -103,6 +106,7 @@ public class BoxService {
                         .map(img -> linkTo(PhotoController.class) + "/api/public/photos/" + img.trim())
                         .toList();
                 box.setImages(images);
+                box.setText(List.of(new Pair(Local.UA, row.getCellText(18)), new Pair(Local.EN, row.getCellText(19))));
                 boxEntities.add(box);
             }
             return boxEntities;

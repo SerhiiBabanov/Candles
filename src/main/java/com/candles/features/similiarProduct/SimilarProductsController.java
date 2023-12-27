@@ -4,10 +4,7 @@ import com.candles.features.box.BoxController;
 import com.candles.features.box.BoxMapper;
 import com.candles.features.box.BoxModel;
 import com.candles.features.box.BoxService;
-import com.candles.features.candle.CandleController;
-import com.candles.features.candle.CandleMapper;
-import com.candles.features.candle.CandleModel;
-import com.candles.features.candle.CandleService;
+import com.candles.features.candle.*;
 import com.candles.features.local.Local;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -48,5 +45,23 @@ public class SimilarProductsController {
                 .peek(box -> box.add(linkTo(BoxController.class).slash(box.getId()).withSelfRel()))
                 .toList();
         return ResponseEntity.ok(CollectionModel.of(boxes));
+    }
+
+    @GetMapping
+    public ResponseEntity<CollectionModel<RelatedProduct>> getSimilarProducts(@RequestParam(name = "id") String id,
+                                                                                    @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
+        //check if id is valid, if not throw exception
+        //if id is valid, get similar products
+        //logic for getting similar products not implemented yet, return 4 random products
+
+        List<RelatedProduct> similarProducts = new java.util.ArrayList<>(candleService.getSimilarCandles(id).stream()
+                .map(candle -> candleMapper.toModel(candle, lang))
+                .map(RelatedProduct::new)
+                .toList());
+        similarProducts.addAll(boxService.getSimilarBoxes(id).stream()
+                .map(box -> boxMapper.toModel(box, lang))
+                .map(RelatedProduct::new)
+                .toList());
+        return ResponseEntity.ok(CollectionModel.of(similarProducts));
     }
 }
