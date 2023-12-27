@@ -1,7 +1,5 @@
 package com.candles.features.candle;
 
-import com.candles.features.box.BoxController;
-import com.candles.features.box.BoxModel;
 import com.candles.features.local.Local;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,7 @@ public class CandleController {
 
     @GetMapping
     public ResponseEntity<PagedModel<CandleModel>> getAll(@RequestParam(name = "lang", defaultValue = "UA", required = false)
-                                                              Local lang,
+                                                          Local lang,
                                                           @QuerydslPredicate(root = CandleEntity.class)
                                                           Predicate predicate,
                                                           @RequestParam(name = "page", defaultValue = "0", required = false)
@@ -50,7 +48,7 @@ public class CandleController {
 
     @GetMapping("/by-id-in")
     public ResponseEntity<List<CandleModel>> getAllByIdIn(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
-                                                       @RequestBody List<String> ids) {
+                                                          @RequestBody List<String> ids) {
         List<CandleModel> candleModels = candleService.getAllCandlesByIdIn(ids)
                 .stream()
                 .map(box -> candleMapper.toModel(box, lang))

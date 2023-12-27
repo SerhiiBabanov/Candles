@@ -1,6 +1,5 @@
 package com.candles.features.candle;
 
-import com.candles.features.box.BoxEntity;
 import com.candles.features.candle.aroma.Aroma;
 import com.candles.features.local.Local;
 import com.candles.features.photo.PhotoController;
