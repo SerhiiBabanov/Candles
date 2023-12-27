@@ -46,7 +46,7 @@ public class OrderValidatorService {
         if (order.getTotal() == null) {
             errors.add("Total is null");
         }
-        if (order.getItems() == null || order.getItems().isEmpty()) {
+        if ((order.getItems() == null || order.getItems().isEmpty()) && (order.getCustomCandles() == null || order.getCustomCandles().isEmpty())) {
             errors.add("Items are null or empty");
         } else if (order.getItems().stream().map(Item::getCategory).anyMatch(Objects::isNull)) {
             errors.add("Category is null");
