@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Order Confirmation</h1>
+    <p class="thank-you">Thank you for your order!</p>
+    <p>Your order has been successfully processed.</p>
+    <h2>Shipping Address</h2>
+    <ul>
+        <li th:text="${order.customer.firstName + ' ' + order.customer.lastName }">First + Last names</li>
+        <li th:text="${order.customer.phone}">Phone</li>
+        <li th:text="${order.customer.address}">Address</li>
+        <li th:if="${order.customer.comment != null}" th:text="${order.customer.comment}">Comment</li>
+    </ul>
+    <h2>Your Order Contains...</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Qty</th>
+            <th>Item Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${order.items}">
+            <td>
+                <span th:if="${item.category == 'box'}">Box</span>
+                <span th:if="${item.category == 'candle'}">Candle</span>
+            </td>
+            <td th:text="${item.name}">Name</td>
+            <td th:text="${item.quantity}">Qty</td>
+            <td th:text="${item.price}">Price</td>
+            <td th:text="${item.total}">Total</td>
+        </tr>
+        <tr>
+            <td colspan="4">Total</td>
+            <td th:text="${order.total}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <p>We will send you another email once your order has been shipped. If you have any questions or concerns, please
+        contact our customer support.</p>
+
+    <p>Thank you again for choosing our products!</p>
+
+    <p>Sincerely,<br>Your Company Name</p>
+</div>
+</body>
+
+</html>
