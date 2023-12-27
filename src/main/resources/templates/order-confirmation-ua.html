@@ -44,7 +44,7 @@
         </tr>
         <tr th:if="${order.customCandles != null}" th:each="candle : ${order.customCandles}">
             <td> Особлива свічка</td>
-            <td th:text="${candle.aromaName}">Aroma name</td>
+            <td th:text="${candle.aroma}">Aroma name</td>
             <td th:text="${candle.quantity}">Qty</td>
             <td th:text="${candle.price}">Price</td>
             <td th:text="${candle.total}">Total</td>
