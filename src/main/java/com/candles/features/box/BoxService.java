@@ -35,6 +35,9 @@ public class BoxService {
         return boxRepository.findAll(predicate,
                 pageable);
     }
+    public List<BoxEntity> getAllBoxesByIdIn(List<String> ids) {
+        return boxRepository.findAllByIdIn(ids);
+    }
 
     public BoxEntity getBoxById(String id) {
         Optional<BoxEntity> box = boxRepository.findById(id);

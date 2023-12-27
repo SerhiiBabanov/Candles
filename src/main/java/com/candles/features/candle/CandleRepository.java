@@ -1,5 +1,6 @@
 package com.candles.features.candle;
 
+import com.candles.features.box.BoxEntity;
 import com.candles.features.candle.aroma.Aroma;
 import com.querydsl.core.types.dsl.StringPath;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -42,4 +43,7 @@ public interface CandleRepository extends MongoRepository<CandleEntity, String>,
 
     @RestResource(exported = false)
     List<CandleEntity> findAllBySlug(String slug);
+
+    @RestResource(exported = false)
+    List<CandleEntity> findAllByIdIn(List<String> ids);
 }

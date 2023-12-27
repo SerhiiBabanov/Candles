@@ -1,5 +1,7 @@
 package com.candles.features.candle;
 
+import com.candles.features.box.BoxController;
+import com.candles.features.box.BoxModel;
 import com.candles.features.local.Local;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,8 @@ import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -42,6 +46,17 @@ public class CandleController {
         PagedModel<CandleModel> pagedModel = pagedResourcesAssembler.toModel(candleModels, candleModelAssembler);
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/by-id-in")
+    public ResponseEntity<List<CandleModel>> getAllByIdIn(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
+                                                       @RequestBody List<String> ids) {
+        List<CandleModel> candleModels = candleService.getAllCandlesByIdIn(ids)
+                .stream()
+                .map(box -> candleMapper.toModel(box, lang))
+                .peek(candleModel -> candleModel.add(linkTo(CandleController.class).slash(candleModel.getId()).withSelfRel()))
+                .toList();
+        return new ResponseEntity<>(candleModels, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

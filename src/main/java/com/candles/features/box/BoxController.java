@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
@@ -24,8 +26,7 @@ public class BoxController {
     private final BoxModelAssembler boxModelAssembler;
 
     @GetMapping
-    public ResponseEntity<PagedModel<BoxModel>> getAll(@RequestParam(name = "lang", defaultValue = "UA", required = false)
-                                                           Local lang,
+    public ResponseEntity<PagedModel<BoxModel>> getAll(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
                                                        @QuerydslPredicate(root = BoxEntity.class)
                                                        Predicate predicate,
                                                        @RequestParam(name = "page", defaultValue = "0", required = false)
@@ -40,6 +41,17 @@ public class BoxController {
                 .map(box -> boxMapper.toModel(box, lang));
         PagedModel<BoxModel> pagedModel = pagedResourcesAssembler.toModel(boxModels, boxModelAssembler);
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
+    }
+
+    @GetMapping("/by-id-in")
+    public ResponseEntity<List<BoxModel>> getAllByIdIn(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
+                                                       @RequestBody List<String> ids) {
+        List<BoxModel> boxModels = boxService.getAllBoxesByIdIn(ids)
+                .stream()
+                .map(box -> boxMapper.toModel(box, lang))
+                .peek(boxModel -> boxModel.add(linkTo(BoxController.class).slash(boxModel.getId()).withSelfRel()))
+                .toList();
+        return new ResponseEntity<>(boxModels, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
