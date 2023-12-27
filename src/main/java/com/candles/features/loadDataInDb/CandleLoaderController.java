@@ -28,7 +28,7 @@ public class CandleLoaderController {
         try {
             candleEntities = candleService.parseFromXLSX(file);
         } catch (IOException e) {
-            throw new WrongDataFormatException("Wrong data format");
+            throw new WrongFileFormatException("Wrong file format");
         }
         candleService.deleteAll();
         candleService.saveAll(candleEntities);

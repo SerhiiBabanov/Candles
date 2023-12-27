@@ -28,7 +28,7 @@ public class BoxLoaderController {
         try {
             boxEntities = boxService.parseFromXLSX(file);
         } catch (IOException e) {
-            throw new WrongDataFormatException("Wrong data format");
+            throw new WrongFileFormatException("Wrong file format");
         }
         boxService.deleteAll();
         boxService.saveAll(boxEntities);

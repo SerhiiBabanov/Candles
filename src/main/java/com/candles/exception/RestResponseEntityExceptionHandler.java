@@ -1,6 +1,7 @@
 package com.candles.exception;
 
-import com.candles.features.loadDataInDb.WrongDataFormatException;
+import com.candles.features.loadDataInDb.WrongFileFormatException;
+import com.candles.features.order.OrderValidateException;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 public class RestResponseEntityExceptionHandler extends
         ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({ RepositoryConstraintViolationException.class })
+    @ExceptionHandler({RepositoryConstraintViolationException.class})
     public ResponseEntity<Object> handleAccessDeniedException(
             Exception ex, WebRequest request) {
         RepositoryConstraintViolationException nevEx =
@@ -29,15 +30,19 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(errors, new HttpHeaders(),
                 HttpStatus.PARTIAL_CONTENT);
     }
-    @ExceptionHandler({ WrongDataFormatException.class })
+
+    @ExceptionHandler({WrongFileFormatException.class})
     public ResponseEntity<Object> handleWrongDataFormatException(
             Exception ex, WebRequest request) {
-        RepositoryConstraintViolationException nevEx =
-                (RepositoryConstraintViolationException) ex;
+        String errors = ex.getMessage();
+        return new ResponseEntity<>(errors, new HttpHeaders(),
+                HttpStatus.PARTIAL_CONTENT);
+    }
 
-        String errors = nevEx.getErrors().getAllErrors().stream()
-                .map(ObjectError::toString).collect(Collectors.joining("\n"));
-
+    @ExceptionHandler({OrderValidateException.class})
+    public ResponseEntity<Object> handleOrderValidateException(
+            Exception ex, WebRequest request) {
+        String errors = ex.getMessage();
         return new ResponseEntity<>(errors, new HttpHeaders(),
                 HttpStatus.PARTIAL_CONTENT);
     }
