@@ -1,7 +1,7 @@
 package com.candles.features.candle;
 
-import com.candles.features.local.Local;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.Pair;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

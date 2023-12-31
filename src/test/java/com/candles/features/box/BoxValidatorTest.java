@@ -1,7 +1,7 @@
 package com.candles.features.box;
 
-import com.candles.features.local.Local;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.Pair;
 import com.candles.service.InitTestDataService;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.BeanPropertyBindingResult;

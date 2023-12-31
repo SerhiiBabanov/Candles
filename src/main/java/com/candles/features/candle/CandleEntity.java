@@ -1,7 +1,7 @@
 package com.candles.features.candle;
 
 import com.candles.features.candle.aroma.Aroma;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

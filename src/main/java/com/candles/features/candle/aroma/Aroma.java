@@ -1,6 +1,6 @@
 package com.candles.features.candle.aroma;
 
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Pair;
 import lombok.Data;
 
 import java.util.ArrayList;

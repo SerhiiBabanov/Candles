@@ -1,11 +1,11 @@
-package com.candles.features.similiarProduct;
+package com.candles.features.relatedProduct;
 
 import com.candles.features.box.BoxController;
 import com.candles.features.box.BoxMapper;
 import com.candles.features.box.BoxModel;
 import com.candles.features.box.BoxService;
 import com.candles.features.candle.*;
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.candles.service;
 
-import com.candles.features.local.Local;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.Pair;
 
 import java.util.List;
 

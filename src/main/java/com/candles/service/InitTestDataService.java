@@ -6,11 +6,11 @@ import com.candles.features.box.kit.Kit;
 import com.candles.features.candle.CandleEntity;
 import com.candles.features.candle.CandleRepository;
 import com.candles.features.candle.aroma.Aroma;
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import com.candles.features.order.Customer;
 import com.candles.features.order.Item;
 import com.candles.features.order.Order;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Pair;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
@@ -72,11 +72,14 @@ public class InitTestDataService {
         Kit kit = new Kit();
         kit.getContainer().add(new Pair(Local.UA, "Kit name UA"));
         kit.getContainer().add(new Pair(Local.EN, "Kit name UA"));
-        kit.setWax("Wax");
-        kit.setWick("Wick");
+        kit.getWax().add(new Pair(Local.UA, "Kit wax UA"));
+        kit.getWax().add(new Pair(Local.EN, "Kit wax EN"));
+        kit.getWick().add(new Pair(Local.UA, "Kit wick UA"));
+        kit.getWick().add(new Pair(Local.EN, "Kit wick EN"));
         kit.getAromaToChoose().add(new Pair(Local.UA, "Aroma UA"));
         kit.getAromaToChoose().add(new Pair(Local.EN, "Aroma EN"));
-        kit.setMatchsticks("Matchsticks");
+        kit.getMatchsticks().add(new Pair(Local.UA, "Matchsticks UA"));
+        kit.getMatchsticks().add(new Pair(Local.EN, "Matchsticks EN"));
         return kit;
     }
 

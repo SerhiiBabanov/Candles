@@ -1,7 +1,7 @@
 package com.candles.features.order;
 
 import com.candles.features.email.EmailSenderService;
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

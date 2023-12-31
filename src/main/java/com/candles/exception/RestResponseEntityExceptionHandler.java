@@ -1,6 +1,6 @@
 package com.candles.exception;
 
-import com.candles.features.loadDataInDb.WrongFileFormatException;
+import com.candles.features.xlsxIntegration.XlsxServiceException;
 import com.candles.features.order.OrderValidateException;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +31,7 @@ public class RestResponseEntityExceptionHandler extends
                 HttpStatus.PARTIAL_CONTENT);
     }
 
-    @ExceptionHandler({WrongFileFormatException.class})
+    @ExceptionHandler({XlsxServiceException.class})
     public ResponseEntity<Object> handleWrongDataFormatException(
             Exception ex, WebRequest request) {
         String errors = ex.getMessage();

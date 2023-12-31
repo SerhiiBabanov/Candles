@@ -1,6 +1,6 @@
 package com.candles.features.candle.aroma;
 
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import com.candles.service.InitTestDataService;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.candles.features.similiarProduct;
+package com.candles.features.relatedProduct;
 
 import com.candles.features.box.BoxModel;
 import com.candles.features.candle.CandleModel;

@@ -1,7 +1,7 @@
 package com.candles.features.box;
 
 import com.candles.features.box.kit.KitMapper;
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import com.candles.service.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

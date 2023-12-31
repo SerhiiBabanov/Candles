@@ -1,6 +1,6 @@
 package com.candles.features.order;
 
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
