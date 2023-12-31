@@ -15,10 +15,10 @@ class KitMapperTest {
         // Step 1: Generate test data
         Kit kit = new Kit();
         kit.setContainer(Arrays.asList(new Pair(Local.EN, "Container EN"), new Pair(Local.UA, "Container UA")));
-        kit.setWax("Test Wax");
-        kit.setWick("Test Wick");
+        kit.setWax(Arrays.asList(new Pair(Local.EN, "Test Wax"), new Pair(Local.UA, "Test Wax UA")));
+        kit.setWick(Arrays.asList(new Pair(Local.EN, "Test Wick"), new Pair(Local.UA, "Test Wick UA")));
         kit.setAromaToChoose(Arrays.asList(new Pair(Local.EN, "Aroma EN"), new Pair(Local.UA, "Aroma UA")));
-        kit.setMatchsticks("Test Matchsticks");
+        kit.setMatchsticks(Arrays.asList(new Pair(Local.EN, "Test Matchsticks"), new Pair(Local.UA, "Test Matchsticks UA")));
 
         // Step 2: Create a Local object
         Local local = Local.EN;
