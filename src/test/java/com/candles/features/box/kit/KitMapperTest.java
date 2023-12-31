@@ -1,7 +1,7 @@
 package com.candles.features.box.kit;
 
-import com.candles.features.local.Local;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

@@ -1,7 +1,7 @@
 package com.candles.features.box;
 
 import com.candles.features.box.kit.Kit;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Pair;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

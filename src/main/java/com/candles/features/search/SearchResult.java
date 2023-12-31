@@ -2,8 +2,8 @@ package com.candles.features.search;
 
 import com.candles.features.box.BoxEntity;
 import com.candles.features.candle.CandleEntity;
-import com.candles.features.local.Local;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

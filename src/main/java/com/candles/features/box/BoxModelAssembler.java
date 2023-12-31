@@ -1,7 +1,7 @@
 package com.candles.features.box;
 
 
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

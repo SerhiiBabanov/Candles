@@ -1,6 +1,6 @@
-package com.candles.model;
+package com.candles.features.landTranslateSupport;
 
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

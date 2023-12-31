@@ -1,7 +1,7 @@
 package com.candles.features.box;
 
-import com.candles.features.local.Local;
-import com.candles.model.Pair;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.Pair;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -40,7 +40,13 @@ public class BoxValidator implements Validator {
             errors.rejectValue("text", "text.empty");
         }
         if (checkListOfPairForError(boxEntity.getKit().getContainer())) {
-            errors.rejectValue("kit", "kitEn.empty");
+            errors.rejectValue("kit", "kitEnContainer.empty");
+        }
+        if (checkListOfPairForError(boxEntity.getKit().getWax())) {
+            errors.rejectValue("kit", "kitEnWax.empty");
+        }
+        if (checkListOfPairForError(boxEntity.getKit().getWick())) {
+            errors.rejectValue("kit", "kitEnWick.empty");
         }
 
     }

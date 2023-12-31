@@ -1,6 +1,6 @@
 package com.candles.features.candle;
 
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

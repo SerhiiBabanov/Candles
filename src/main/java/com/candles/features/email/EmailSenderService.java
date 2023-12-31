@@ -1,6 +1,6 @@
 package com.candles.features.email;
 
-import com.candles.features.local.Local;
+import com.candles.features.landTranslateSupport.Local;
 import com.candles.features.order.Order;
 import com.candles.features.subscription.EmailSubscriptionRepository;
 import jakarta.mail.MessagingException;

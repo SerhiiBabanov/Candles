@@ -1,4 +1,4 @@
-package com.candles.features.local;
+package com.candles.features.landTranslateSupport;
 
 import org.springframework.stereotype.Service;
 

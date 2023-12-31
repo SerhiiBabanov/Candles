@@ -2,8 +2,8 @@ package com.candles.features.search;
 
 import com.candles.features.box.BoxRepository;
 import com.candles.features.candle.CandleRepository;
-import com.candles.features.local.Local;
-import com.candles.features.local.LocaleService;
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.landTranslateSupport.LocaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
