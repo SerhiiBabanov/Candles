@@ -1,6 +1,8 @@
 package com.candles.features.candle;
 
 import com.candles.features.candle.aroma.Aroma;
+import com.candles.features.landTranslateSupport.QPair;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.StringPath;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -10,7 +12,9 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RepositoryRestResource(collectionResourceRel = "candles", path = "candles")
 public interface CandleRepository extends MongoRepository<CandleEntity, String>, QuerydslPredicateExecutor<CandleEntity>,
@@ -30,8 +34,20 @@ public interface CandleRepository extends MongoRepository<CandleEntity, String>,
 
     @Override
     default void customize(QuerydslBindings bindings, QCandleEntity root) {
-        // Make case-insensitive 'like' filter for all string properties
-        bindings.bind(String.class).first((StringPath path, String value) -> path.containsIgnoreCase(value));
+        bindings.bind(String.class).all((StringPath path, Collection<? extends String> value) -> {
+            BooleanBuilder predicate = new BooleanBuilder();
+            for (String v : value) {
+                predicate.or(path.containsIgnoreCase(v));
+            }
+            return Optional.of(predicate);
+        });
+        bindings.bind(QPair.pair.value).all((path, value) -> {
+            BooleanBuilder predicate = new BooleanBuilder();
+            for (String v : value) {
+                predicate.or(path.containsIgnoreCase(v));
+            }
+            return Optional.of(predicate);
+        });
     }
 
     @RestResource(exported = false)

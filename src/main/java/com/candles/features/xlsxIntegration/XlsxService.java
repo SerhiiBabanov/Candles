@@ -98,13 +98,16 @@ public class XlsxService {
     private static Aroma getAroma(Row row) {
         Aroma aroma = new Aroma();
         aroma.setName(List.of(new Pair(Local.UA, row.getCellText(19)), new Pair(Local.EN, row.getCellText(20))));
-
+        List<Pair> notesAll = new ArrayList<>();
         List<List<Pair>> topNotes = new ArrayList<>();
         String[] notes = row.getCellText(21).split(",");
         for (int i = 0; i < notes.length; i++) {
             List<Pair> note = new ArrayList<>();
-            note.add(new Pair(Local.UA, notes[i].substring(0, notes[i].indexOf("/"))));
-            note.add(new Pair(Local.EN, notes[i].substring(notes[i].indexOf("/") + 1)));
+            String noteUA = notes[i].substring(0, notes[i].indexOf("/"));
+            String noteEN = notes[i].substring(notes[i].indexOf("/") + 1);
+            note.add(new Pair(Local.UA, noteUA));
+            note.add(new Pair(Local.EN, noteEN));
+            notesAll.addAll(note);
             topNotes.add(note);
         }
         aroma.setTopNotes(topNotes);
@@ -113,11 +116,15 @@ public class XlsxService {
         notes = row.getCellText(22).split(",");
         for (int i = 0; i < notes.length; i++) {
             List<Pair> note = new ArrayList<>();
-            note.add(new Pair(Local.UA, notes[i].substring(0, notes[i].indexOf("/"))));
-            note.add(new Pair(Local.EN, notes[i].substring(notes[i].indexOf("/") + 1)));
+            String noteUA = notes[i].substring(0, notes[i].indexOf("/"));
+            String noteEN = notes[i].substring(notes[i].indexOf("/") + 1);
+            note.add(new Pair(Local.UA, noteUA));
+            note.add(new Pair(Local.EN, noteEN));
+            notesAll.addAll(note);
             baseNotes.add(note);
         }
         aroma.setBaseNotes(baseNotes);
+        aroma.setNotes(notesAll);
         return aroma;
     }
 
