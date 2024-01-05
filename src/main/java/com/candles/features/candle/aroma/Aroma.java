@@ -11,4 +11,5 @@ public class Aroma {
     private List<Pair> name = new ArrayList<>();
     private List<List<Pair>> topNotes = new ArrayList<>();
     private List<List<Pair>> baseNotes = new ArrayList<>();
+    private List<Pair> notes;
 }
