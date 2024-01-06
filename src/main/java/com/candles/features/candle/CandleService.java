@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +36,15 @@ public class CandleService {
         Optional<CandleEntity> candle = candleRepository.findById(id);
         Local local = Local.EN;
         if (candle.isPresent()) {
-            List<CandleEntity> relatedByAroma = candleRepository.findAllByAroma(candle.get().getAroma()).stream().filter(candleEntity -> !candleEntity.getId().equals(id)).limit(4).toList();
+            List<CandleEntity> relatedByAroma = candleRepository.findAllByAroma(candle.get().getAroma()).stream()
+                    .filter(candleEntity -> !candleEntity.getId().equals(id))
+                    .limit(4)
+                    .collect(Collectors.toCollection(ArrayList::new));
             if (relatedByAroma.size() < 5) {
-                List<CandleEntity> additional = candleRepository.findAll().stream().filter(candleEntity -> !candleEntity.getId().equals(id)).limit(10).toList();
+                List<CandleEntity> additional = candleRepository.findAll().stream()
+                        .filter(candleEntity -> !candleEntity.getId().equals(id))
+                        .limit(10)
+                        .toList();
                 relatedByAroma.addAll(additional);
             }
             return relatedByAroma.stream().distinct().limit(4).toList();
