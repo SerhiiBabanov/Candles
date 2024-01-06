@@ -60,7 +60,7 @@ public class CandleController {
     @GetMapping("/{id}")
     public CandleModel getById(@PathVariable(name = "id") String id,
                                @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
-        CandleModel candleModel = candleMapper.toModel(candleService.getCandleById(id), lang);
+        CandleModel candleModel = candleMapper.toModel(candleService.getCandleById(id).orElseThrow(() -> new IllegalArgumentException("Incorrect id: " + id)), lang);
         candleModel.add(linkTo(CandleController.class).slash(candleModel.getId()).withSelfRel());
         return candleModel;
     }

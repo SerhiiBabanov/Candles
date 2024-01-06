@@ -55,8 +55,5 @@ public interface BoxRepository extends MongoRepository<BoxEntity, String>, Query
     List<BoxEntity> findAllByPrice(BigDecimal price);
 
     @RestResource(exported = false)
-    List<BoxEntity> findAllByVolume(String volume);
-
-    @RestResource(exported = false)
     List<BoxEntity> findAllByIdIn(List<String> ids);
 }

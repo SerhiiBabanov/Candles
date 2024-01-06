@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -53,7 +54,7 @@ public class BoxControllerTests {
 
     @Test
     public void BoxController_GetBoxById_ReturnResponseWithLink() throws Exception {
-        given(boxService.getBoxById(any())).willReturn(boxEntity);
+        given(boxService.getBoxById(any())).willReturn(Optional.ofNullable(boxEntity));
 
         ResultActions response = mockMvc.perform(get("/api/public/boxes/" + boxEntity.getId())
                 .contentType(MediaType.APPLICATION_JSON)

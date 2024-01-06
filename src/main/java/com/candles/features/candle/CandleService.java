@@ -13,8 +13,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 @Service
 @RequiredArgsConstructor
 public class CandleService {
@@ -26,23 +24,22 @@ public class CandleService {
                 pageable);
     }
 
-    public CandleEntity getCandleById(String id) {
-        Optional<CandleEntity> candle = candleRepository.findById(id);
-        return candle.orElse(null);
+    public Optional<CandleEntity> getCandleById(String id) {
+        return candleRepository.findById(id);
     }
 
     public List<CandleEntity> getAllCandlesByIdIn(List<String> ids) {
         return candleRepository.findAllByIdIn(ids);
     }
 
-    public List<CandleEntity> getSimilarCandles(String id) {
+    public List<CandleEntity> getRelatedCandles(String id) {
         Optional<CandleEntity> candle = candleRepository.findById(id);
         Local local = Local.EN;
         if (candle.isPresent()) {
-            List<CandleEntity> similarByAroma = candleRepository.findAllByAroma(candle.get().getAroma());
-            List<CandleEntity> similarByVolume = candleRepository.findAllByVolume(candle.get().getVolume());
-            List<CandleEntity> similarBySlug = candleRepository.findAllBySlug(candle.get().getSlug());
-            return Stream.of(similarByAroma, similarByVolume, similarBySlug).flatMap(List::stream)
+            Stream<CandleEntity> relatedByAroma = candleRepository.findAllByAroma(candle.get().getAroma()).stream().limit(5);
+            Stream<CandleEntity> any4 = candleRepository.findAll().stream().limit(5);
+            return Stream.concat(relatedByAroma, any4)
+                    .filter(candleEntity -> !candleEntity.getId().equals(id))
                     .distinct()
                     .limit(4)
                     .toList();

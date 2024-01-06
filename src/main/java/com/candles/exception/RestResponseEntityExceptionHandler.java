@@ -1,7 +1,7 @@
 package com.candles.exception;
 
-import com.candles.features.xlsxIntegration.XlsxServiceException;
 import com.candles.features.order.OrderValidateException;
+import com.candles.features.xlsxIntegration.XlsxServiceException;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,6 +41,14 @@ public class RestResponseEntityExceptionHandler extends
 
     @ExceptionHandler({OrderValidateException.class})
     public ResponseEntity<Object> handleOrderValidateException(
+            Exception ex, WebRequest request) {
+        String errors = ex.getMessage();
+        return new ResponseEntity<>(errors, new HttpHeaders(),
+                HttpStatus.PARTIAL_CONTENT);
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity<Object> handleIllegalArgumentValidateException(
             Exception ex, WebRequest request) {
         String errors = ex.getMessage();
         return new ResponseEntity<>(errors, new HttpHeaders(),
