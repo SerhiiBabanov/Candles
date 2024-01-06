@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -36,13 +37,12 @@ public class CandleService {
         Optional<CandleEntity> candle = candleRepository.findById(id);
         Local local = Local.EN;
         if (candle.isPresent()) {
-            Stream<CandleEntity> relatedByAroma = candleRepository.findAllByAroma(candle.get().getAroma()).stream().limit(5);
-            Stream<CandleEntity> any4 = candleRepository.findAll().stream().limit(5);
-            return Stream.concat(relatedByAroma, any4)
-                    .filter(candleEntity -> !candleEntity.getId().equals(id))
-                    .distinct()
-                    .limit(4)
-                    .toList();
+            List<CandleEntity> relatedByAroma = candleRepository.findAllByAroma(candle.get().getAroma()).stream().filter(candleEntity -> !candleEntity.getId().equals(id)).limit(4).toList();
+            if (relatedByAroma.size() < 5) {
+                List<CandleEntity> additional = candleRepository.findAll().stream().filter(candleEntity -> !candleEntity.getId().equals(id)).limit(10).toList();
+                relatedByAroma.addAll(additional);
+            }
+            return relatedByAroma.stream().distinct().limit(4).toList();
         }
         return candleRepository.findAll().stream().limit(4).toList();
     }
