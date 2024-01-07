@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -53,7 +54,7 @@ class CandleControllerTest {
 
     @Test
     void CandleController_GetCandleById_ReturnResponseWithLink() throws Exception {
-        given(candleService.getCandleById(any())).willReturn(candleEntity);
+        given(candleService.getCandleById(any())).willReturn(Optional.ofNullable(candleEntity));
 
         ResultActions response = mockMvc.perform(get("/api/public/candles/" + candleEntity.getId())
                 .contentType(MediaType.APPLICATION_JSON)

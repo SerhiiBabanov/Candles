@@ -12,8 +12,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 @Service
 @RequiredArgsConstructor
 public class BoxService {
@@ -24,26 +22,27 @@ public class BoxService {
         return boxRepository.findAll(predicate,
                 pageable);
     }
+
     public List<BoxEntity> getAllBoxesByIdIn(List<String> ids) {
         return boxRepository.findAllByIdIn(ids);
     }
 
-    public BoxEntity getBoxById(String id) {
-        Optional<BoxEntity> box = boxRepository.findById(id);
-        return box.orElse(null);
+    public Optional<BoxEntity> getBoxById(String id) {
+        return boxRepository.findById(id);
     }
 
     public List<BoxEntity> getSimilarBoxes(String id) {
         Optional<BoxEntity> box = boxRepository.findById(id);
         if (box.isPresent()) {
-            List<BoxEntity> similarByPrice = boxRepository.findAllByPrice(box.get().getPrice());
-            List<BoxEntity> similarByVolume = boxRepository.findAllByVolume(box.get().getVolume());
-            return Stream.of(similarByPrice, similarByVolume).flatMap(List::stream)
+            Stream<BoxEntity> relatedByPrice = boxRepository.findAllByPrice(box.get().getPrice()).stream().limit(5);
+            Stream<BoxEntity> all = boxRepository.findAll().stream().limit(5);
+            return Stream.concat(relatedByPrice, all)
+                    .filter(boxEntity -> !boxEntity.getId().equals(id))
                     .distinct()
                     .limit(4)
                     .toList();
         }
-        return boxRepository.findAll().stream().limit(4).toList();
+        return new ArrayList<>();
     }
 
     public void addPhoto(String id, String url) {

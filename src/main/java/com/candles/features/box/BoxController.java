@@ -57,7 +57,7 @@ public class BoxController {
     @GetMapping("/{id}")
     public BoxModel getById(@PathVariable(name = "id") String id,
                             @RequestParam(name = "lang", defaultValue = "UA") Local lang) {
-        BoxModel boxModel = boxMapper.toModel(boxService.getBoxById(id), lang);
+        BoxModel boxModel = boxMapper.toModel(boxService.getBoxById(id).orElseThrow(() -> new IllegalArgumentException("Incorrect id: " + id)), lang);
         boxModel.add(linkTo(BoxController.class).slash(boxModel.getId()).withSelfRel());
         return boxModel;
     }
