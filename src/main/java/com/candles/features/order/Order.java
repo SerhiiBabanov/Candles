@@ -5,12 +5,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
+
 @Document(collection = "orders")
 @Data
 public class Order {
     @Id
-    private String id;
+    private BigInteger id;
     private Customer customer;
     private List<Item> items;
     private List<CustomCandle> customCandles;

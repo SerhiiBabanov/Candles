@@ -10,4 +10,8 @@ public class Customer {
     private String email;
     private String address;
     private String comment;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
