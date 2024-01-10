@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -41,6 +42,7 @@ public class EmailSenderService {
                 .forEach(email -> mailSender.send(constructEmail(subject, body, email.getEmail())));
     }
 
+    @Async
     public void sendOrderConfirmationEmail(Order order, Local lang) throws MessagingException {
         String subject = "Order Confirmation";
         String body;

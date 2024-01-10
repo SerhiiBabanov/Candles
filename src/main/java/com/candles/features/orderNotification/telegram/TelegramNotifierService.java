@@ -3,6 +3,7 @@ package com.candles.features.orderNotification.telegram;
 import com.candles.features.order.Order;
 import jakarta.ws.rs.core.UriBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class TelegramNotifierService {
         this.TOKEN = TOKEN;
     }
 
+    @Async
     public void sendOrderNotification(Order order) throws IOException, InterruptedException {
         TelegramOrderMessage message = new TelegramOrderMessage(order);
         HttpClient client = HttpClient.newBuilder()
