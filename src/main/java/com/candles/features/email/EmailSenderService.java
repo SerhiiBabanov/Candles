@@ -44,6 +44,13 @@ public class EmailSenderService {
 
     @Async
     public void sendOrderConfirmationEmail(Order order, Local lang) throws MessagingException {
+        //send to customer
+        mailSender.send(createOrderConfirmationEmail(order, lang, order.getCustomer().getEmail()));
+        //send to admin
+        mailSender.send(createOrderConfirmationEmail(order, lang, senderEmail));
+    }
+
+    public MimeMessage createOrderConfirmationEmail(Order order, Local lang, String email) throws MessagingException {
         String subject = "Order Confirmation";
         String body;
         final Context ctx = new Context();
@@ -57,10 +64,9 @@ public class EmailSenderService {
         final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
         message.setSubject(subject);
         message.setFrom(senderEmail);
-        message.setTo(order.getCustomer().getEmail());
+        message.setTo(email);
         message.setText(body, true /* isHtml */);
-
-        mailSender.send(mimeMessage);
+        return mimeMessage;
 
     }
 
