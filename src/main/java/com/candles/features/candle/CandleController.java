@@ -46,7 +46,7 @@ public class CandleController {
 
     }
 
-    @GetMapping("/by-id-in")
+    @PostMapping("/by-id-in")
     public ResponseEntity<List<CandleModel>> getAllByIdIn(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
                                                           @RequestBody List<String> ids) {
         List<CandleModel> candleModels = candleService.getAllCandlesByIdIn(ids)

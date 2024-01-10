@@ -43,7 +43,7 @@ public class BoxController {
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
     }
 
-    @GetMapping("/by-id-in")
+    @PostMapping("/by-id-in")
     public ResponseEntity<List<BoxModel>> getAllByIdIn(@RequestParam(name = "lang", defaultValue = "UA", required = false) Local lang,
                                                        @RequestBody List<String> ids) {
         List<BoxModel> boxModels = boxService.getAllBoxesByIdIn(ids)
