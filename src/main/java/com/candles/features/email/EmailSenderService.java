@@ -1,19 +1,15 @@
 package com.candles.features.email;
 
-import com.candles.features.landTranslateSupport.Local;
-import com.candles.features.order.Order;
 import com.candles.features.subscription.EmailSubscriptionRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 @Service
 @RequiredArgsConstructor
@@ -21,11 +17,9 @@ public class EmailSenderService {
 
     private final JavaMailSender mailSender;
     private final EmailSubscriptionRepository emailSubscriptionRepository;
-    private final TemplateEngine htmlTemplateEngine;
     @Value("${spring.mail.username}")
+    @Getter
     private String senderEmail;
-    private static final String EMAIL_TEXT_TEMPLATE_UA = "order-confirmation-ua.html";
-    private static final String EMAIL_TEXT_TEMPLATE_EN = "order-confirmation-en.html";
 
     public void sendEmail(String subject, String body,
                           String emailTo) {
@@ -43,31 +37,9 @@ public class EmailSenderService {
     }
 
     @Async
-    public void sendOrderConfirmationEmail(Order order, Local lang) throws MessagingException {
+    public void sendEmail(MimeMessage message) throws MessagingException {
         //send to customer
-        mailSender.send(createOrderConfirmationEmail(order, lang, order.getCustomer().getEmail()));
-        //send to admin
-        mailSender.send(createOrderConfirmationEmail(order, lang, senderEmail));
-    }
-
-    public MimeMessage createOrderConfirmationEmail(Order order, Local lang, String email) throws MessagingException {
-        String subject = "Order Confirmation";
-        String body;
-        final Context ctx = new Context();
-        ctx.setVariable("order", order);
-        if (lang.name().equals("UA")) {
-            body = htmlTemplateEngine.process(EMAIL_TEXT_TEMPLATE_UA, ctx);
-        } else {
-            body = htmlTemplateEngine.process(EMAIL_TEXT_TEMPLATE_EN, ctx);
-        }
-        final MimeMessage mimeMessage = mailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-        message.setSubject(subject);
-        message.setFrom(senderEmail);
-        message.setTo(email);
-        message.setText(body, true /* isHtml */);
-        return mimeMessage;
-
+        mailSender.send(message);
     }
 
     private SimpleMailMessage constructEmail(String subject, String body,
@@ -81,10 +53,12 @@ public class EmailSenderService {
 
     private SimpleMailMessage constructEmail(String subject, String body,
                                              String emailTo, String emailCC) {
-
         SimpleMailMessage email = constructEmail(subject, body, emailTo);
         email.setCc(emailCC);
         return email;
     }
 
+    public MimeMessage createMimeMessage() {
+        return mailSender.createMimeMessage();
+    }
 }
