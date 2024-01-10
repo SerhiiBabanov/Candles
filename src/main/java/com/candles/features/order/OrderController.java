@@ -1,6 +1,8 @@
 package com.candles.features.order;
 
 import com.candles.features.landTranslateSupport.Local;
+import com.candles.features.orderNotification.email.EmailNotifierService;
+import com.candles.features.orderNotification.telegram.TelegramNotifierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final OrderValidatorService orderValidatorService;
+    private final TelegramNotifierService telegramNotifierService;
+    private final EmailNotifierService emailNotifierService;
 
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order,
@@ -22,7 +26,14 @@ public class OrderController {
         if (!errors.isEmpty()) {
             throw new OrderValidateException(errors.toString());
         }
-        Order savedOrder = orderService.createOrder(order, lang);
+        Order savedOrder = orderService.createOrder(order);
+        //send notifications
+        try {
+            telegramNotifierService.sendOrderNotification(order);
+            emailNotifierService.sendOrderNotification(order, lang);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return ResponseEntity.ok(savedOrder);
     }
 }
