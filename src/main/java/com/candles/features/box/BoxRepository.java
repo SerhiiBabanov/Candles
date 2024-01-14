@@ -56,4 +56,7 @@ public interface BoxRepository extends MongoRepository<BoxEntity, String>, Query
 
     @RestResource(exported = false)
     List<BoxEntity> findAllByIdIn(List<String> ids);
+
+    @RestResource(exported = false)
+    boolean existsById(String id);
 }

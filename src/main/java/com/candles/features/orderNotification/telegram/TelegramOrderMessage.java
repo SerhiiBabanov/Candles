@@ -17,9 +17,9 @@ public class TelegramOrderMessage {
                 "email= " + order.getCustomer().getEmail() + "\n" +
                 "address= " + order.getCustomer().getAddress() + "\n" +
                 "comment= " + order.getCustomer().getComment() + "\n" +
-                "items= " + "\n" +
+                "items: " + "\n" +
                 order.getItems().stream()
-                        .map(item -> "  " + item.getName() + " - quantity:" + item.getQuantity())
+                        .map(item -> "  " + item.getCategory() + " - quantity:" + item.getQuantity())
                         .collect(Collectors.joining("\n"))
                 + "\n" +
                 order.getCustomCandles().stream()
