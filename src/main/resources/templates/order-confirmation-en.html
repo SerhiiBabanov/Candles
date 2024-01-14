@@ -28,7 +28,6 @@
             <th>Name</th>
             <th>Qty</th>
             <th>Item Price</th>
-            <th>Total</th>
         </tr>
         </thead>
         <tbody>
@@ -37,17 +36,14 @@
                 <span th:if="${item.category == 'box'}">Box</span>
                 <span th:if="${item.category == 'candle'}">Candle</span>
             </td>
-            <td th:text="${item.name}">Name</td>
             <td th:text="${item.quantity}">Qty</td>
             <td th:text="${item.price}">Price</td>
-            <td th:text="${item.total}">Total</td>
         </tr>
         <tr th:if="${order.customCandles != null}" th:each="candle : ${order.customCandles}">
             <td> Custom candle</td>
             <td th:text="${candle.aroma}">Aroma name</td>
             <td th:text="${candle.quantity}">Qty</td>
             <td th:text="${candle.price}">Price</td>
-            <td th:text="${candle.total}">Total</td>
         </tr>
         <tr>
             <td colspan="4">Total</td>
