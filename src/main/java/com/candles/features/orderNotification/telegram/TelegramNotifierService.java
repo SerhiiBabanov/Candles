@@ -24,7 +24,7 @@ public class TelegramNotifierService {
     }
 
     @Async
-    public void sendOrderNotification(Order order) throws IOException, InterruptedException {
+    public void sendOrderNotification(Order order) {
         TelegramOrderMessage message = new TelegramOrderMessage(order);
         HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))
@@ -43,6 +43,10 @@ public class TelegramNotifierService {
                 .timeout(Duration.ofSeconds(5))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            throw new TelegramNotificationException("Error while sending notification telegram. Order#" + order.getId());
+        }
     }
 }

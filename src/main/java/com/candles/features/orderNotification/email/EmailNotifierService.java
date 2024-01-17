@@ -26,9 +26,8 @@ public class EmailNotifierService {
             //send to customer
             emailSenderService.sendEmail(createOrderConfirmationEmail(order, lang, order.getCustomer().getEmail()));
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            throw new EmailNotificationException("Error while sending notification email. Order#" + order.getId());
         }
-
     }
 
     public MimeMessage createOrderConfirmationEmail(Order order, Local lang, String email) throws MessagingException {
@@ -48,6 +47,5 @@ public class EmailNotifierService {
         message.setTo(email);
         message.setText(body, true /* isHtml */);
         return mimeMessage;
-
     }
 }

@@ -2,6 +2,7 @@ package com.candles.config;
 
 import com.candles.features.box.BoxEntity;
 import com.candles.features.candle.CandleEntity;
+import com.candles.features.order.Item;
 import com.candles.features.order.Order;
 import com.candles.features.subscription.EmailSubscriptionEntity;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ public class RestConfig implements RepositoryRestConfigurer {
             config.exposeIdsFor(CandleEntity.class);
             config.exposeIdsFor(EmailSubscriptionEntity.class);
             config.exposeIdsFor(Order.class);
+            config.exposeIdsFor(Item.class);
         });
     }
 }
