@@ -1,6 +1,6 @@
-package com.candles.features.orderNotification.telegram;
+package com.candles.features.notification.telegram;
 
-import com.candles.features.orderNotification.NotificationException;
+import com.candles.features.notification.NotificationException;
 
 public class TelegramNotificationException extends NotificationException {
     public TelegramNotificationException(String message) {

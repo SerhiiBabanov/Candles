@@ -1,4 +1,4 @@
-package com.candles.features.orderNotification.telegram;
+package com.candles.features.notification.telegram;
 
 import com.candles.features.order.Order;
 import lombok.AllArgsConstructor;

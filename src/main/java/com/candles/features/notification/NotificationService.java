@@ -1,9 +1,9 @@
-package com.candles.features.orderNotification;
+package com.candles.features.notification;
 
 import com.candles.features.landTranslateSupport.Local;
 import com.candles.features.order.Order;
-import com.candles.features.orderNotification.email.EmailNotifierService;
-import com.candles.features.orderNotification.telegram.TelegramNotifierService;
+import com.candles.features.notification.email.EmailNotifierService;
+import com.candles.features.notification.telegram.TelegramNotifierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

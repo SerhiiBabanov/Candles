@@ -7,8 +7,9 @@ import com.candles.features.candle.CandleEntity;
 import com.candles.features.candle.CandleRepository;
 import com.candles.features.candle.aroma.Aroma;
 import com.candles.features.landTranslateSupport.Local;
-import com.candles.features.photo.PhotoController;
 import com.candles.features.landTranslateSupport.Pair;
+import com.candles.features.order.Order;
+import com.candles.features.photo.PhotoController;
 import lombok.RequiredArgsConstructor;
 import org.dhatim.fastexcel.Workbook;
 import org.dhatim.fastexcel.Worksheet;
@@ -314,5 +315,9 @@ public class XlsxService {
         }
         sb.deleteCharAt(sb.length() - 1); // delete last comma
         return sb.toString();
+    }
+
+    private void writeOrdersIntoWorksheet(Worksheet ws, List<Order> orders) {
+        //TODO implement this method
     }
 }
