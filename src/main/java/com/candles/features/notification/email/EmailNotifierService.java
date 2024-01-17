@@ -1,4 +1,4 @@
-package com.candles.features.orderNotification.email;
+package com.candles.features.notification.email;
 
 import com.candles.features.email.EmailSenderService;
 import com.candles.features.landTranslateSupport.Local;

@@ -1,4 +1,4 @@
-package com.candles.features.orderNotification;
+package com.candles.features.notification;
 
 public class NotificationException extends RuntimeException {
     public NotificationException(String message) {

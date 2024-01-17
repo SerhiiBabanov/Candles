@@ -1,6 +1,6 @@
-package com.candles.features.orderNotification.email;
+package com.candles.features.notification.email;
 
-import com.candles.features.orderNotification.NotificationException;
+import com.candles.features.notification.NotificationException;
 
 public class EmailNotificationException extends NotificationException {
     public EmailNotificationException(String message) {
