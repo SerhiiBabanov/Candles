@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class Configuration {
+public class Configuration {
     private String container;
     private String wax;
     private String aroma;
