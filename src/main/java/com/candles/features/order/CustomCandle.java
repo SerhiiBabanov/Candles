@@ -10,12 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomCandle {
-    private String container;
-    private String wax;
-    private String aroma;
-    private Integer wicks;
-    private String color;
+    private Configuration configuration;
     private BigDecimal price;
     private Integer quantity;
-    private BigDecimal total;
 }

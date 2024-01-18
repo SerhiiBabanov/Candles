@@ -96,20 +96,14 @@ public class InitTestDataService {
         Item box = new Item();
         box.setId("boxId");
         box.setCategory("box");
-        box.setName("boxName");
-        box.setDescription("boxDescription");
         box.setPrice(BigDecimal.valueOf(100));
         box.setQuantity(1);
-        box.setTotal(BigDecimal.valueOf(100).multiply(BigDecimal.valueOf(1)));
 
         Item candle = new Item();
         candle.setId("candle");
         candle.setCategory("candleType");
-        candle.setName("candleName");
-        candle.setDescription("candleDescription");
         candle.setPrice(BigDecimal.valueOf(100));
         candle.setQuantity(1);
-        candle.setTotal(BigDecimal.valueOf(100).multiply(BigDecimal.valueOf(1)));
 
         Customer customer = new Customer();
         customer.setFirstName("firstName");

@@ -54,11 +54,8 @@ public interface CandleRepository extends MongoRepository<CandleEntity, String>,
     List<CandleEntity> findAllByAroma(Aroma aroma);
 
     @RestResource(exported = false)
-    List<CandleEntity> findAllByVolume(String volume);
-
-    @RestResource(exported = false)
-    List<CandleEntity> findAllBySlug(String slug);
-
-    @RestResource(exported = false)
     List<CandleEntity> findAllByIdIn(List<String> ids);
+
+    @RestResource(exported = false)
+    boolean existsById(String id);
 }

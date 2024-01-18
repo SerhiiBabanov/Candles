@@ -25,10 +25,8 @@
         <thead>
         <tr>
             <th>Тип</th>
-            <th>Назва</th>
             <th>Кількість</th>
             <th>Ціна за одиницю</th>
-            <th>Загальна ціна</th>
         </tr>
         </thead>
         <tbody>
@@ -37,20 +35,16 @@
                 <span th:if="${item.category == 'box'}">Бокс</span>
                 <span th:if="${item.category == 'candle'}">Свічка</span>
             </td>
-            <td th:text="${item.name}">Name</td>
             <td th:text="${item.quantity}">Qty</td>
             <td th:text="${item.price}">Price</td>
-            <td th:text="${item.total}">Total</td>
         </tr>
         <tr th:if="${order.customCandles != null}" th:each="candle : ${order.customCandles}">
             <td> Особлива свічка</td>
-            <td th:text="${candle.aroma}">Aroma name</td>
             <td th:text="${candle.quantity}">Qty</td>
             <td th:text="${candle.price}">Price</td>
-            <td th:text="${candle.total}">Total</td>
         </tr>
         <tr>
-            <td colspan="4">Total</td>
+            <td colspan="3">Total</td>
             <td th:text="${order.total}"></td>
         </tr>
         </tbody>
