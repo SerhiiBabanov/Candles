@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -26,24 +25,25 @@ public class TelegramNotifierService {
     @Async
     public void sendOrderNotification(Order order) {
         TelegramOrderMessage message = new TelegramOrderMessage(order);
-        try (HttpClient client = HttpClient.newBuilder()
+        HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(5))
                 .version(HttpClient.Version.HTTP_2)
-                .build()) {
-            UriBuilder builder = UriBuilder
-                    .fromUri("https://api.telegram.org")
-                    .path("/{token}/sendMessage")
-                    .queryParam("chat_id", CHAT_ID)
-                    .queryParam("text", message.toString());
+                .build();
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .GET()
-                    .uri(builder.build("bot" + TOKEN))
-                    .timeout(Duration.ofSeconds(5))
-                    .build();
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        UriBuilder builder = UriBuilder
+                .fromUri("https://api.telegram.org")
+                .path("/{token}/sendMessage")
+                .queryParam("chat_id", CHAT_ID)
+                .queryParam("text", message.toString());
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(builder.build("bot" + TOKEN))
+                .timeout(Duration.ofSeconds(5))
+                .build();
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             throw new TelegramNotificationException("Error while sending notification telegram. Order#" + order.getId());
         }
