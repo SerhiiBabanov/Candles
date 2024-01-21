@@ -74,12 +74,12 @@
         </div>
         <div class="payment-method">
             <p class="orderTitleStyle" style="margin-bottom: 12px">Спосіб оплати:</p>
-            <p th:text="${order.payment}">Тип оплати</p>
+            <p th:text="${order.customer.payment}">Тип оплати</p>
         </div>
         <div>
             <p class="orderTitleStyle" style="margin-bottom: 12px">Спосіб
                 доставки:</p>
-            <p th:text="${order.delivery}">Тип доставки</p>
+            <p th:text="${order.customer.delivery}">Тип доставки</p>
         </div>
     </div>
     <div style="padding: 14px; margin: 10px 0 24px 0" th:if="${order.customer.comment != null}">

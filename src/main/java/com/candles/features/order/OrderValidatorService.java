@@ -32,14 +32,14 @@ public class OrderValidatorService {
     }
 
     private void isOrderPaymentAndDeliveryCorrect(Order order, List<String> errors) {
-        if (order.getPayment() == null) {
+        if (order.getCustomer().getPayment() == null) {
             errors.add("Payment is null");
-        } else if (order.getPayment().isEmpty()) {
+        } else if (order.getCustomer().getPayment().isEmpty()) {
             errors.add("Payment is empty");
         }
-        if (order.getDelivery() == null) {
+        if (order.getCustomer().getDelivery() == null) {
             errors.add("Delivery is null");
-        } else if (order.getDelivery().isEmpty()) {
+        } else if (order.getCustomer().getDelivery().isEmpty()) {
             errors.add("Delivery is empty");
         }
     }
