@@ -128,8 +128,8 @@ public class OrderValidatorService {
                 }
                 if (configuration.getWicks() == null) {
                     errors.add("Wicks is null");
-                } else if (configuration.getWicks() <= 0 || configuration.getWicks() > 3) {
-                    errors.add("Wicks is less than 0 or more than 3");
+                } else if (configuration.getWicks() <= 0 || configuration.getWicks() > 4) {
+                    errors.add("Wicks is less than 0 or more than 4");
                 }
                 if (configuration.getColor() == null) {
                     errors.add("Wax color is null");
