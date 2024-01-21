@@ -1,34 +1,146 @@
 <!DOCTYPE html>
 <html lang="uk" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Підтвердження замовлення</title>
     <style>
-        body, div, h1, ul, li, p, h2 { margin: 0; padding: 0; } p, td { font-size:
-                20px; line-height: 1.5; color: #2D2D2D } a { color: #2D2D2D;
-                                                             text-decoration: none; } .emailContainerStyle { max-width: 1200px; margin:
-                30px auto; padding-left: 15px; padding-right: 15px; background-color:
-                #fff; } .headerStyle { color: #1E1E1E; font-size: 36px; font-weight: 700;
-                            line-height: 1.44; text-align: center; margin-bottom: 56px }
-        .orderContainerStyle { border-radius: 20px; background-color: #FFF8F9;
-            padding: 14px } .orderWrapperStyle { display: flex; margin-bottom: 24px }
-        .orderNumberStyle { font-size: 16px; line-height: 1.5; font-weight: 400;
-            color: #2D2D2D; margin-right: 10px } .orderNumberDigitsStyle { font-size:
-                18px; font-weight: 700 } .orderTitleStyle { font-size: 20px; line-height:
-                1.5; color: #760434; font-weight: 700 } .orderListStyle {list-style:
-                none;} .tableRowStyle { display: flex; width: 100%; margin-bottom: 14px }
-        .priceWrapperStyle { display: flex; color: #EB0768; font-size: 18px;
-            line-height: 1.54; font-weight: 700 } .priceStyle { color: #EB0768;
-                                                      font-size: 18px; font-weight: 700; margin-right: 4px } .priceSpanStyle {
-                                                                                                                 font-weight: 400 } .orderTotalStyle { display: flex; padding: 14px;
-                                                                                                                                        margin: 10px 0 32px 0 } .flex-container { border-radius: 20px;
-                                                                                                                                                                    background-color: #FFF8F9; padding: 14px; margin-bottom: 12px } @media
-        only screen and (min-width: 768px) { .flex-container { display:flex; }
-            .delivery-address { width: 55%; margin-right: 14px; } .payment-method {
-                                                                      width: 35%; margin-right: 14px;} } @media only screen and (max-width:
-                767px) { .flex-container { display: block; } .delivery-address { width:
-                100%; margin-bottom: 14px;} .payment-method { margin-bottom: 14px;} }
+        body, div, h1, ul, li, p, h2 {
+            margin: 0;
+            padding: 0;
+        }
+
+        p, td {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #2D2D2D
+        }
+
+        a {
+            color: #2D2D2D;
+            text-decoration: none;
+        }
+
+        .emailContainerStyle {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: #fff;
+        }
+
+        .headerStyle {
+            color: #1E1E1E;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.44;
+            text-align: center;
+            margin-bottom: 56px
+        }
+
+        .orderContainerStyle {
+            border-radius: 20px;
+            background-color: #FFF8F9;
+            padding: 14px
+        }
+
+        .orderWrapperStyle {
+            display: flex;
+            margin-bottom: 24px
+        }
+
+        .orderNumberStyle {
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 400;
+            color: #2D2D2D;
+            margin-right: 10px
+        }
+
+        .orderNumberDigitsStyle {
+            font-size: 18px;
+            font-weight: 700
+        }
+
+        .orderTitleStyle {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #760434;
+            font-weight: 700
+        }
+
+        .orderListStyle {
+            list-style: none;
+        }
+
+        .tableRowStyle {
+            display: flex;
+            width: 100%;
+            margin-bottom: 14px
+        }
+
+        .priceWrapperStyle {
+            display: flex;
+            color: #EB0768;
+            font-size: 18px;
+            line-height: 1.54;
+            font-weight: 700
+        }
+
+        .priceStyle {
+            color: #EB0768;
+            font-size: 18px;
+            font-weight: 700;
+            margin-right: 4px
+        }
+
+        .priceSpanStyle {
+            font-weight: 400
+        }
+
+        .orderTotalStyle {
+            display: flex;
+            padding: 14px;
+            margin: 10px 0 32px 0
+        }
+
+        .flex-container {
+            border-radius: 20px;
+            background-color: #FFF8F9;
+            padding: 14px;
+            margin-bottom: 12px
+        }
+
+        @media only screen and (min-width: 768px) {
+            .flex-container {
+                display: flex;
+            }
+
+            .delivery-address {
+                width: 55%;
+                margin-right: 14px;
+            }
+
+            .payment-method {
+                width: 35%;
+                margin-right: 14px;
+            }
+        }
+
+        @media only screen and (max-width: 767px) {
+            .flex-container {
+                display: block;
+            }
+
+            .delivery-address {
+                width: 100%;
+                margin-bottom: 14px;
+            }
+
+            .payment-method {
+                margin-bottom: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -43,8 +155,10 @@
         <h2 class="orderTitleStyle" style="margin-bottom: 24px">Ваше замовлення:</h2>
         <ul class="orderListStyle">
             <li class="tableRowStyle" th:each="item : ${order.items}">
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}" th:text="${'Бокс - ' + item.name + ', аромат: ' + item.configuration.aroma}">Бокс</p>
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}" th:text="${'Свічка - ' + item.name}">Свічка</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}"
+                   th:text="${'Бокс - ' + item.name + ', аромат: ' + item.configuration.aroma}">Бокс</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}"
+                   th:text="${'Свічка - ' + item.name}">Свічка</p>
                 <p style="width: 20%" th:text="${item.quantity}">-1</p>
                 <div class="priceWrapperStyle">
                     <p class="priceStyle" th:text="${item.price}">-1</p>
@@ -52,8 +166,9 @@
                 </div>
             </li>
             <li class="tableRowStyle" th:each="candle : ${order.customCandles}">
-                <p  style=" width: 80%; margin-rigth: 14px" th:text="${'Кастомна свічка: ' + candle.configuration.aroma + ', ' + candle.configuration.container + ', віск: '
-                + candle.configuration.wax + ', колір: ' + candle.configuration.color + ', гнітів: ' + candle.configuration.wicks }">Кастомна свічка</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:text="${'Кастомна свічка: ' + candle.configuration.aroma + ', ' + candle.configuration.container + ', віск: '
+                + candle.configuration.wax + ', колір: ' + candle.configuration.color + ', гнітів: ' + candle.configuration.wicks }">
+                    Кастомна свічка</p>
                 <p style="width: 20%" th:text="${candle.quantity}">-1</p>
                 <div class="priceWrapperStyle">
                     <p class="priceStyle" th:text="${candle.price}">-1</p>
@@ -67,7 +182,7 @@
                 class="orderTitleStyle"
                 style="width: 80%; margin-bottom: 24px"
         >Сума:</p>
-        <p style="width: 20%;"> </p>
+        <p style="width: 20%;"></p>
         <div class="priceWrapperStyle">
             <p class="priceStyle" th:text="${order.total}">-1</p>
             <span class="priceSpanStyle">&#8372;</span>
@@ -78,7 +193,8 @@
         <div class="delivery-address">
             <p class="orderTitleStyle" style="margin-bottom: 12px">Адреса
                 доставки:</p>
-            <p th:text="${order.customer.getFullName() + ', ' + order.customer.phone}">Діана Радішевська, +380638765343</p>
+            <p th:text="${order.customer.getFullName() + ', ' + order.customer.phone}">Діана Радішевська,
+                +380638765343</p>
             <p th:text="${order.customer.address}">вул. Б. Хмельницького 8/56</p>
         </div>
         <div class="payment-method">
@@ -91,7 +207,8 @@
             <p th:text="${order.customer.delivery}">Тип доставки</p>
         </div>
     </div>
-    <div style="padding: 14px; margin: 10px 0 24px 0" th:if="${(order.customer.comment != null) && (order.customer.comment.length() > 0)}">
+    <div style="padding: 14px; margin: 10px 0 24px 0"
+         th:if="${(order.customer.comment != null) && (order.customer.comment.length() > 0)}">
         <p class="orderTitleStyle">Коментар:</p>
         <p th:text="${order.customer.comment}">Коментар</p>
     </div>

@@ -155,8 +155,10 @@
         <h2 class="orderTitleStyle" style="margin-bottom: 24px">Your order:</h2>
         <ul class="orderListStyle">
             <li class="tableRowStyle" th:each="item : ${order.items}">
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}" th:text="${'Box - ' + item.name + ', aroma: ' + item.configuration.aroma}">Box</p>
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}" th:text="${'Candle - ' + item.name}">Candle</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}"
+                   th:text="${'Box - ' + item.name + ', aroma: ' + item.configuration.aroma}">Box</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}"
+                   th:text="${'Candle - ' + item.name}">Candle</p>
                 <p style="width: 20%" th:text="${item.quantity}">-1</p>
                 <div class="priceWrapperStyle">
                     <p class="priceStyle" th:text="${item.price}">-1</p>
