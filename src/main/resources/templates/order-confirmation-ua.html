@@ -82,7 +82,7 @@
             <p th:text="${order.customer.delivery}">Тип доставки</p>
         </div>
     </div>
-    <div style="padding: 14px; margin: 10px 0 24px 0" th:if="${order.customer.comment != null}">
+    <div style="padding: 14px; margin: 10px 0 24px 0" th:if="${(order.customer.comment != null) && (order.customer.comment.length() > 0)}">
         <p class="orderTitleStyle">Коментар:</p>
         <p th:text="${order.customer.comment}">Коментар</p>
     </div>
