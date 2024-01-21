@@ -22,12 +22,26 @@ public class OrderValidatorService {
         isItemsInfoCorrect(order, errors);
         isCustomCandlesCorrect(order, errors);
         isTotalPriceForOrderCorrect(order, errors);
+        isOrderPaymentAndDeliveryCorrect(order, errors);
         if (order.getDate() == null) {
             errors.add("Date is null");
         } else if (order.getDate().isEmpty()) {
             errors.add("Date is empty");
         }
         return errors;
+    }
+
+    private void isOrderPaymentAndDeliveryCorrect(Order order, List<String> errors) {
+        if (order.getPayment() == null) {
+            errors.add("Payment is null");
+        } else if (order.getPayment().isEmpty()) {
+            errors.add("Payment is empty");
+        }
+        if (order.getDelivery() == null) {
+            errors.add("Delivery is null");
+        } else if (order.getDelivery().isEmpty()) {
+            errors.add("Delivery is empty");
+        }
     }
 
     private void isItemsOrCustomCandlesPresent(Order order, List<String> errors) {
