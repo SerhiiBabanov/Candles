@@ -18,5 +18,7 @@ public class Order {
     private List<CustomCandle> customCandles;
     private BigDecimal total;
     private Boolean payed;
+    private String payment;
+    private String delivery;
     private String date;
 }
