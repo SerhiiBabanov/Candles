@@ -1,65 +1,90 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<html lang="uk" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order Confirmation</title>
-
+    <style>
+        body, div, h1, ul, li, p, h2 { margin: 0; padding: 0; } p, td { font-size:
+                20px; line-height: 1.5; color: #2D2D2D } a { color: #2D2D2D;
+                                                             text-decoration: none; } .emailContainerStyle { max-width: 1200px; margin:
+                30px auto; padding-left: 15px; padding-right: 15px; background-color:
+                #fff; } .headerStyle { color: #1E1E1E; font-size: 36px; font-weight: 700;
+                            line-height: 1.44; text-align: center; margin-bottom: 56px }
+        .orderContainerStyle { border-radius: 20px; background-color: #FFF8F9;
+            padding: 14px } .orderWrapperStyle { display: flex; margin-bottom: 24px }
+        .orderNumberStyle { font-size: 16px; line-height: 1.5; font-weight: 400;
+            color: #2D2D2D; margin-right: 10px } .orderNumberDigitsStyle { font-size:
+                18px; font-weight: 700 } .orderTitleStyle { font-size: 20px; line-height:
+                1.5; color: #760434; font-weight: 700 } .orderListStyle {list-style:
+                none;} .tableRowStyle { display: flex; width: 100%; margin-bottom: 14px }
+        .priceWrapperStyle { display: flex; color: #EB0768; font-size: 18px;
+            line-height: 1.54; font-weight: 700 } .priceStyle { color: #EB0768;
+                                                      font-size: 18px; font-weight: 700; margin-right: 4px } .priceSpanStyle {
+                                                                                                                 font-weight: 400 } .orderTotalStyle { display: flex; padding: 14px;
+                                                                                                                                        margin: 10px 0 32px 0 } .flex-container { border-radius: 20px;
+                                                                                                                                                                    background-color: #FFF8F9; padding: 14px; margin-bottom: 12px } @media
+        only screen and (min-width: 768px) { .flex-container { display:flex; }
+            .delivery-address { width: 55%; margin-right: 14px; } .payment-method {
+                                                                      width: 35%; margin-right: 14px;} } @media only screen and (max-width:
+                767px) { .flex-container { display: block; } .delivery-address { width:
+                100%; margin-bottom: 14px;} .payment-method { margin-bottom: 14px;} }
+    </style>
 </head>
 
 <body>
-<div class="container">
-    <h1>Order Confirmation</h1>
-    <p class="thank-you">Thank you for your order!</p>
-    <p>Your order has been successfully processed.</p>
-    <h2>Shipping Address</h2>
-    <ul>
-        <li th:text="${order.customer.firstName + ' ' + order.customer.lastName }">First + Last names</li>
-        <li th:text="${order.customer.phone}">Phone</li>
-        <li th:text="${order.customer.address}">Address</li>
-        <li th:if="${order.customer.comment != null}" th:text="${order.customer.comment}">Comment</li>
-    </ul>
-    <h2>Your Order Contains...</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Qty</th>
-            <th>Item Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${order.items}">
-            <td>
-                <span th:if="${item.category == 'box'}">Box</span>
-                <span th:if="${item.category == 'candle'}">Candle</span>
-            </td>
-            <td th:text="${item.quantity}">Qty</td>
-            <td th:text="${item.price}">Price</td>
-        </tr>
-        <tr th:if="${order.customCandles != null}" th:each="candle : ${order.customCandles}">
-            <td> Custom candle</td>
-            <td th:text="${candle.aroma}">Aroma name</td>
-            <td th:text="${candle.quantity}">Qty</td>
-            <td th:text="${candle.price}">Price</td>
-        </tr>
-        <tr>
-            <td colspan="4">Total</td>
-            <td th:text="${order.total}"></td>
-        </tr>
-        </tbody>
+<div class="emailContainerStyle">
+    <h1 class="headerStyle">Order confirmation</h1>
+    <div class="orderContainerStyle">
+        <div class="orderWrapperStyle">
+            <p class="orderNumberStyle">Order # </p>
+            <p class="orderNumberDigitsStyle" th:text="${order.id}">orderId</p>
+        </div>
+        <h2 class="orderTitleStyle" style="margin-bottom: 24px">Your order:</h2>
+        <ul class="orderListStyle">
+            <li class="tableRowStyle" th:each="item : ${order.items}">
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}">Candle</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}">Box</p>
+                <p style="width: 20%" th:text="${item.quantity}">-1</p>
+                <div class="priceWrapperStyle">
+                    <p class="priceStyle" th:text="${item.price}">-1</p>
+                    <span class="priceSpanStyle">&#8372;</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="orderTotalStyle">
+        <p
+                class="orderTitleStyle"
+                style="width: 80%; margin-bottom: 24px"
+        >Total:</p>
+        <p style="width: 20%;"> </p>
+        <div class="priceWrapperStyle">
+            <p class="priceStyle" th:text="${order.total}">-1</p>
+            <span class="priceSpanStyle">&#8372;</span>
+        </div>
+    </div>
 
-    </table>
-
-    <p>We will send you another email once your order has been shipped. If you have any questions or concerns, please
-        contact our customer support.</p>
-
-    <p>Thank you again for choosing our products!</p>
-
-    <p>Sincerely,<br>Your Company Name</p>
+    <div class="flex-container">
+        <div class="delivery-address">
+            <p class="orderTitleStyle" style="margin-bottom: 12px">Address:</p>
+            <p th:text="${order.customer.getFullName() + ', ' + order.customer.phone}">Name and phone</p>
+            <p th:text="${order.customer.address}">Address</p>
+        </div>
+        <div class="payment-method">
+            <p class="orderTitleStyle" style="margin-bottom: 12px">Payment method:</p>
+            <p th:text="${order.payment}">Payment method</p>
+        </div>
+        <div>
+            <p class="orderTitleStyle" style="margin-bottom: 12px">Delivery:</p>
+            <p th:text="${order.delivery}">Delivery method</p>
+        </div>
+    </div>
+    <div style="padding: 14px; margin: 10px 0 24px 0" th:if="${order.customer.comment != null}">
+        <p class="orderTitleStyle">Comment:</p>
+        <p th:text="${order.customer.comment}">Comment</p>
+    </div>
+    <p class="orderTitleStyle" style="padding-left: 14px">Thank you :)</p>
 </div>
 </body>
-
 </html>

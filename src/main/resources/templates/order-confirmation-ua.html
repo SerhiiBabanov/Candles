@@ -1,62 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<html lang="uk" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Підтвердження замовлення</title>
-
+    <style>
+        body, div, h1, ul, li, p, h2 { margin: 0; padding: 0; } p, td { font-size:
+                20px; line-height: 1.5; color: #2D2D2D } a { color: #2D2D2D;
+                                                             text-decoration: none; } .emailContainerStyle { max-width: 1200px; margin:
+                30px auto; padding-left: 15px; padding-right: 15px; background-color:
+                #fff; } .headerStyle { color: #1E1E1E; font-size: 36px; font-weight: 700;
+                            line-height: 1.44; text-align: center; margin-bottom: 56px }
+        .orderContainerStyle { border-radius: 20px; background-color: #FFF8F9;
+            padding: 14px } .orderWrapperStyle { display: flex; margin-bottom: 24px }
+        .orderNumberStyle { font-size: 16px; line-height: 1.5; font-weight: 400;
+            color: #2D2D2D; margin-right: 10px } .orderNumberDigitsStyle { font-size:
+                18px; font-weight: 700 } .orderTitleStyle { font-size: 20px; line-height:
+                1.5; color: #760434; font-weight: 700 } .orderListStyle {list-style:
+                none;} .tableRowStyle { display: flex; width: 100%; margin-bottom: 14px }
+        .priceWrapperStyle { display: flex; color: #EB0768; font-size: 18px;
+            line-height: 1.54; font-weight: 700 } .priceStyle { color: #EB0768;
+                                                      font-size: 18px; font-weight: 700; margin-right: 4px } .priceSpanStyle {
+                                                                                                                 font-weight: 400 } .orderTotalStyle { display: flex; padding: 14px;
+                                                                                                                                        margin: 10px 0 32px 0 } .flex-container { border-radius: 20px;
+                                                                                                                                                                    background-color: #FFF8F9; padding: 14px; margin-bottom: 12px } @media
+        only screen and (min-width: 768px) { .flex-container { display:flex; }
+            .delivery-address { width: 55%; margin-right: 14px; } .payment-method {
+                                                                      width: 35%; margin-right: 14px;} } @media only screen and (max-width:
+                767px) { .flex-container { display: block; } .delivery-address { width:
+                100%; margin-bottom: 14px;} .payment-method { margin-bottom: 14px;} }
+    </style>
 </head>
 
 <body>
-<div class="container">
-    <h1>Підтвердження замовлення</h1>
-    <p class="thank-you">Дякуємо за ваше замовлення!</p>
-    <p>Ваше замовлення було успішно розміщене.</p>
-    <h2>Адреса доставки</h2>
-    <ul>
-        <li th:text="${order.customer.firstName + ' ' + order.customer.lastName }">First + Last names</li>
-        <li th:text="${order.customer.phone}">Phone</li>
-        <li th:text="${order.customer.address}">Address</li>
-        <li th:if="${order.customer.comment != null}" th:text="${order.customer.comment}">Comment</li>
-    </ul>
-    <h2>Ваш ордер містить...</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Тип</th>
-            <th>Кількість</th>
-            <th>Ціна за одиницю</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${order.items}">
-            <td>
-                <span th:if="${item.category == 'box'}">Бокс</span>
-                <span th:if="${item.category == 'candle'}">Свічка</span>
-            </td>
-            <td th:text="${item.quantity}">Qty</td>
-            <td th:text="${item.price}">Price</td>
-        </tr>
-        <tr th:if="${order.customCandles != null}" th:each="candle : ${order.customCandles}">
-            <td> Особлива свічка</td>
-            <td th:text="${candle.quantity}">Qty</td>
-            <td th:text="${candle.price}">Price</td>
-        </tr>
-        <tr>
-            <td colspan="3">Total</td>
-            <td th:text="${order.total}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="emailContainerStyle">
+    <h1 class="headerStyle">Підтвердження замовлення</h1>
+    <div class="orderContainerStyle">
+        <div class="orderWrapperStyle">
+            <p class="orderNumberStyle">Номер замовлення </p>
+            <p class="orderNumberDigitsStyle" th:text="${order.id}">orderId</p>
+        </div>
+        <h2 class="orderTitleStyle" style="margin-bottom: 24px">Ваше замовлення:</h2>
+        <ul class="orderListStyle">
+            <li class="tableRowStyle" th:each="item : ${order.items}">
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}">Свічка</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}">Бокс</p>
+                <p style="width: 20%" th:text="${item.quantity}">-1</p>
+                <div class="priceWrapperStyle">
+                    <p class="priceStyle" th:text="${item.price}">-1</p>
+                    <span class="priceSpanStyle">&#8372;</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="orderTotalStyle">
+        <p
+                class="orderTitleStyle"
+                style="width: 80%; margin-bottom: 24px"
+        >Сума:</p>
+        <p style="width: 20%;"> </p>
+        <div class="priceWrapperStyle">
+            <p class="priceStyle" th:text="${order.total}">-1</p>
+            <span class="priceSpanStyle">&#8372;</span>
+        </div>
+    </div>
 
-    <p>Ми надішлемо вам електронний лист, як тільки ваше замовлення буде відправлено. Якщо у вас є будь-які
-        питання, будь ласка, зв'яжіться з нашою службою підтримки.</p>
-
-    <p>Дякуємо вам ще раз за вибір наших продуктів!</p>
-
-    <p>З повагою,<br>Ваша компанія</p>
+    <div class="flex-container">
+        <div class="delivery-address">
+            <p class="orderTitleStyle" style="margin-bottom: 12px">Адреса
+                доставки:</p>
+            <p th:text="${order.customer.getFullName() + ', ' + order.customer.phone}">Діана Радішевська, +380638765343</p>
+            <p th:text="${order.customer.address}">вул. Б. Хмельницького 8/56</p>
+        </div>
+        <div class="payment-method">
+            <p class="orderTitleStyle" style="margin-bottom: 12px">Спосіб оплати:</p>
+            <p th:text="${order.payment}">Тип оплати</p>
+        </div>
+        <div>
+            <p class="orderTitleStyle" style="margin-bottom: 12px">Спосіб
+                доставки:</p>
+            <p th:text="${order.delivery}">Тип доставки</p>
+        </div>
+    </div>
+    <div style="padding: 14px; margin: 10px 0 24px 0" th:if="${order.customer.comment != null}">
+        <p class="orderTitleStyle">Коментар:</p>
+        <p th:text="${order.customer.comment}">Коментар</p>
+    </div>
+    <p class="orderTitleStyle" style="padding-left: 14px">Дякуємо за довіру :)</p>
 </div>
 </body>
-
 </html>
