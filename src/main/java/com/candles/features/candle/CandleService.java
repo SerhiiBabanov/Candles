@@ -1,6 +1,7 @@
 package com.candles.features.candle;
 
 import com.candles.features.landTranslateSupport.Local;
+import com.candles.service.Utils;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -65,6 +66,13 @@ public class CandleService {
         }
     }
 
+    public String findNameById(String id, Local lang) {
+        Optional<CandleEntity> candle = candleRepository.findById(id);
+        if (candle.isPresent()) {
+            return Utils.getPropertyByLocal(candle.get().getName(), lang);
+        }
+        return "";
+    }
     public void saveAll(List<CandleEntity> candleEntities) {
         candleRepository.saveAll(candleEntities);
     }

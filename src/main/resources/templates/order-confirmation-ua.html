@@ -43,11 +43,20 @@
         <h2 class="orderTitleStyle" style="margin-bottom: 24px">Ваше замовлення:</h2>
         <ul class="orderListStyle">
             <li class="tableRowStyle" th:each="item : ${order.items}">
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}">Свічка</p>
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}">Бокс</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}" th:text="${'Бокс - ' + item.name + ', аромат: ' + item.configuration.aroma}">Бокс</p>
+                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}" th:text="${'Свічка - ' + item.name}">Свічка</p>
                 <p style="width: 20%" th:text="${item.quantity}">-1</p>
                 <div class="priceWrapperStyle">
                     <p class="priceStyle" th:text="${item.price}">-1</p>
+                    <span class="priceSpanStyle">&#8372;</span>
+                </div>
+            </li>
+            <li class="tableRowStyle" th:each="candle : ${order.customCandles}">
+                <p  style=" width: 80%; margin-rigth: 14px" th:text="${'Кастомна свічка: ' + candle.configuration.aroma + ', ' + candle.configuration.container + ', віск: '
+                + candle.configuration.wax + ', колір: ' + candle.configuration.color + ', гнітів: ' + candle.configuration.wicks }">Кастомна свічка</p>
+                <p style="width: 20%" th:text="${candle.quantity}">-1</p>
+                <div class="priceWrapperStyle">
+                    <p class="priceStyle" th:text="${candle.price}">-1</p>
                     <span class="priceSpanStyle">&#8372;</span>
                 </div>
             </li>

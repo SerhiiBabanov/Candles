@@ -25,6 +25,7 @@ public class OrderController {
             throw new OrderValidateException(errors.toString());
         }
         Order savedOrder = orderService.createOrder(order);
+        orderService.fillNameOfItems(savedOrder, lang);
         notificationService.sendOrderNotification(savedOrder, lang);
         return ResponseEntity.ok(savedOrder);
     }

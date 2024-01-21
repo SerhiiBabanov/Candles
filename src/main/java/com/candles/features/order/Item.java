@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class Item {
     private String id;
     private String category;
+    private String name;
     private BigDecimal price;
     private Integer quantity;
     @JsonInclude(JsonInclude.Include.NON_NULL)

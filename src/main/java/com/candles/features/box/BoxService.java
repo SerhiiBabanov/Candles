@@ -1,5 +1,7 @@
 package com.candles.features.box;
 
+import com.candles.features.landTranslateSupport.Local;
+import com.candles.service.Utils;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -58,6 +60,13 @@ public class BoxService {
         }
     }
 
+    public String findNameById(String id, Local lang) {
+        Optional<BoxEntity> box = boxRepository.findById(id);
+        if (box.isPresent()) {
+            return Utils.getPropertyByLocal(box.get().getName(), lang);
+        }
+        return "";
+    }
     public void deleteAll() {
         boxRepository.deleteAll();
     }
