@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Order Confirmation</title>
+    <title>Order confirmation</title>
     <style>
         body, div, h1, ul, li, p, h2 {
             margin: 0;
@@ -83,15 +83,15 @@
             display: flex;
             color: #EB0768;
             font-size: 18px;
-            line-height: 1.54;
-            font-weight: 700
+            line-height: 1.54
         }
 
         .priceStyle {
             color: #EB0768;
             font-size: 18px;
             font-weight: 700;
-            margin-right: 4px
+            margin-right: 4px;
+            white-space: nowrap;
         }
 
         .priceSpanStyle {
@@ -101,7 +101,7 @@
         .orderTotalStyle {
             display: flex;
             padding: 14px;
-            margin: 10px 0 32px 0
+            margin: 10px 0 42px 0
         }
 
         .flex-container {
@@ -127,7 +127,8 @@
             }
         }
 
-        @media only screen and (max-width: 767px) {
+        @media only screen
+        and (max-width: 767px) {
             .flex-container {
                 display: block;
             }
@@ -140,6 +141,27 @@
             .payment-method {
                 margin-bottom: 14px;
             }
+        }
+
+        @media only screen and (min-width: 768px) {
+            .candleNameStyle {
+                margin-right: 14px;
+                width: 70%;
+            }
+        }
+
+        @media only screen
+        and (max-width: 767px) {
+            .candleNameStyle {
+                margin-right: 7px;
+                width: 60%;
+            }
+        }
+
+        .quantityStyle {
+            min-width: 10%;
+            text-align: right;
+            margin-right: 7px;
         }
     </style>
 </head>
@@ -154,22 +176,25 @@
         </div>
         <h2 class="orderTitleStyle" style="margin-bottom: 24px">Your order:</h2>
         <ul class="orderListStyle">
-            <li class="tableRowStyle" th:each="item : ${order.items}">
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'box'}"
+            <li class="tableRowStyle" style="width: 100%" th:each="item : ${order.items}">
+                <p class="candleNameStyle"
+                   th:if="${item.category == 'box'}"
                    th:text="${'Box - ' + item.name + ', aroma: ' + item.configuration.aroma}">Box</p>
-                <p style=" width: 80%; margin-rigth: 14px" th:if="${item.category == 'candle'}"
+                <p class="candleNameStyle"
+                   th:if="${item.category == 'candle'}"
                    th:text="${'Candle - ' + item.name}">Candle</p>
-                <p style="width: 20%" th:text="${item.quantity}">-1</p>
-                <div class="priceWrapperStyle">
+                <p class="quantityStyle" th:text="${item.quantity}">-1</p>
+                <div class="priceWrapperStyle" style="margin-left: auto;">
                     <p class="priceStyle" th:text="${item.price}">-1</p>
                     <span class="priceSpanStyle">&#8372;</span>
                 </div>
             </li>
-            <li class="tableRowStyle" th:each="candle : ${order.customCandles}">
-                <p  style=" width: 80%; margin-rigth: 14px" th:text="${'Custom candle: ' + candle.configuration.aroma + ', ' + candle.configuration.container + ', wax: '
-                + candle.configuration.wax + ', color: ' + candle.configuration.color + ', wicks: ' + candle.configuration.wicks }">Candle</p>
-                <p style="width: 20%" th:text="${candle.quantity}">-1</p>
-                <div class="priceWrapperStyle">
+            <li class="tableRowStyle" style="width: 100%" th:each="candle : ${order.customCandles}">
+                <p class="candleNameStyle" th:text="${'Castom candle: ' + candle.configuration.aroma + ', ' + candle.configuration.container + ', wax: '
+                + candle.configuration.wax + ', color: ' + candle.configuration.color + ', wicks: ' + candle.configuration.wicks }">
+                    Custom candle</p>
+                <p class="quantityStyle" th:text="${candle.quantity}">-1</p>
+                <div class="priceWrapperStyle" style="margin-left: auto;">
                     <p class="priceStyle" th:text="${candle.price}">-1</p>
                     <span class="priceSpanStyle">&#8372;</span>
                 </div>
@@ -177,12 +202,9 @@
         </ul>
     </div>
     <div class="orderTotalStyle">
-        <p
-                class="orderTitleStyle"
-                style="width: 80%; margin-bottom: 24px"
-        >Total:</p>
-        <p style="width: 20%;"></p>
-        <div class="priceWrapperStyle">
+        <p class="candleNameStyle orderTitleStyle">Total:</p>
+        <p class="quantityStyle"></p>
+        <div class="priceWrapperStyle" style="margin-left: auto;">
             <p class="priceStyle" th:text="${order.total}">-1</p>
             <span class="priceSpanStyle">&#8372;</span>
         </div>
