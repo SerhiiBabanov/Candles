@@ -1,7 +1,5 @@
 package com.candles.features.search;
 
-import com.candles.features.box.BoxRepository;
-import com.candles.features.candle.CandleRepository;
 import com.candles.features.landTranslateSupport.Local;
 import com.candles.features.landTranslateSupport.LocaleService;
 import lombok.RequiredArgsConstructor;
@@ -11,29 +9,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/public/search")
 @RequiredArgsConstructor
-public class SearchController{
-    private final BoxRepository boxRepository;
-    private final CandleRepository candleRepository;
+public class SearchController {
+    private final SearchService searchService;
 
     @GetMapping
-    public List<SearchResult> search(@RequestParam(name = "q") String pattern,
+    public List<SearchResult> search(@RequestParam(name = "q") String keywords,
                                      @RequestParam(name = "lang", required = false) Local lang) {
         if (lang == null) {
-            lang = LocaleService.isEnSymbolOnly(pattern) ?
-                    Local.EN : Local.UA;
+            lang = LocaleService.isEnSymbolOnly(keywords) ? Local.EN : Local.UA;
         }
-        Local finalLang = lang;
-        Stream<SearchResult> candles = candleRepository.searchByPattern(pattern).stream()
-                .map(candle -> new SearchResult(candle, finalLang));
-
-        Stream<SearchResult> boxes = boxRepository.searchByPattern(pattern).stream()
-                .map(box -> new SearchResult(box, finalLang));
-        return Stream.concat(boxes, candles).collect(Collectors.toList());
+        return searchService.fullTextSearch(keywords, lang);
     }
 }
