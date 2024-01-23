@@ -1,13 +1,11 @@
 package com.candles.features.search;
 
-import com.candles.features.box.BoxEntity;
-import com.candles.features.candle.CandleEntity;
 import com.candles.features.landTranslateSupport.Local;
 import com.candles.features.landTranslateSupport.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.bson.Document;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -16,30 +14,19 @@ public class SearchResult {
     private String id;
     private String title;
     private String slug;
-    private BigDecimal price;
+    private String price;
     private List<String> images;
 
-    public SearchResult(BoxEntity boxEntity, Local lang) {
-        this.id = boxEntity.getId();
-        this.title = boxEntity.getTitle().stream()
+    public SearchResult(Document document, Local lang) {
+        this.id = document.getObjectId("_id").toString();
+        this.title = document.getList("title", Document.class).stream()
+                .map(doc -> new Pair(Local.valueOf(doc.getString("key")), doc.getString("value")))
                 .filter(pair -> pair.getKey().equals(lang))
                 .map(Pair::getValue)
                 .findFirst()
                 .orElse(null);
-        this.slug = boxEntity.getSlug();
-        this.price = boxEntity.getPrice();
-        this.images = boxEntity.getImages();
-    }
-
-    public SearchResult(CandleEntity candleEntity, Local lang) {
-        this.id = candleEntity.getId();
-        this.title = candleEntity.getTitle().stream()
-                .filter(pair -> pair.getKey().equals(lang))
-                .map(Pair::getValue)
-                .findFirst()
-                .orElse(null);
-        this.slug = candleEntity.getSlug();
-        this.price = candleEntity.getPrice();
-        this.images = candleEntity.getImages();
+        this.slug = document.getString("slug");
+        this.price = document.getString("price");
+        this.images = document.getList("images", String.class);
     }
 }
