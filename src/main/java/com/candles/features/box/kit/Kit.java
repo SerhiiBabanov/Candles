@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 public class Kit {
     private List<Pair> container = new ArrayList<>();
-    private List<Pair> wax;
-    private List<Pair> wick;
+    private List<Pair> wax = new ArrayList<>();
+    private List<Pair> wick = new ArrayList<>();
     private List<Pair> aromaToChoose = new ArrayList<>();
-    private List<Pair> matchsticks;
+    private List<Pair> matchsticks = new ArrayList<>();
 }

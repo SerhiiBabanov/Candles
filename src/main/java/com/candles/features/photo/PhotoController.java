@@ -12,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -63,15 +61,11 @@ public class PhotoController {
     @PostMapping("/api/private/photos")
     public ResponseEntity<String> uploadPhotos(@RequestParam("files") MultipartFile[] images) {
         try {
-            Arrays.asList(images).stream().forEach(file -> {
-                try {
-                    photoService.addPhoto(file);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            for (MultipartFile image : images) {
+                photoService.addPhoto(image);
+            }
             return ResponseEntity.status(HttpStatus.OK).body("Uploaded the files successfully");
-        } catch (RuntimeException e) {
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Fail to upload files!");
         }
     }

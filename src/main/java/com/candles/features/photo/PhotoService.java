@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +27,13 @@ public class PhotoService {
 
     public PhotoEntity getPhoto(String id) {
         return photoRepository.findById(id).orElse(null);
+    }
+
+    public List<PhotoEntity> getAllPhotos() {
+        return photoRepository.findAll();
+    }
+
+    public void deleteAll() {
+        photoRepository.deleteAll();
     }
 }

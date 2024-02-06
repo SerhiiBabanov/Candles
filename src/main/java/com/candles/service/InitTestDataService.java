@@ -1,17 +1,14 @@
 package com.candles.service;
 
 import com.candles.features.box.BoxEntity;
-import com.candles.features.box.BoxRepository;
 import com.candles.features.box.kit.Kit;
 import com.candles.features.candle.CandleEntity;
-import com.candles.features.candle.CandleRepository;
 import com.candles.features.candle.aroma.Aroma;
 import com.candles.features.landTranslateSupport.Local;
 import com.candles.features.order.Customer;
 import com.candles.features.order.Item;
 import com.candles.features.order.Order;
 import com.candles.features.landTranslateSupport.Pair;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
@@ -20,23 +17,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-//@Component
+
 @RequiredArgsConstructor
 public class InitTestDataService {
-    private final BoxRepository boxRepository;
-    private final CandleRepository candleRepository;
-
-    @PostConstruct
-    public void initTestData() {
-        boxRepository.save(getBoxEntity());
-        candleRepository.save(getCandleEntity());
-    }
-
     public static BoxEntity getBoxEntity() {
         BoxEntity boxEntity = new BoxEntity();
         boxEntity.setId("Test Id");
         boxEntity.setTitle(Arrays.asList(new Pair(Local.EN, "Title EN"), new Pair(Local.UA, "Title UA")));
         boxEntity.setName(Arrays.asList(new Pair(Local.EN, "Name EN"), new Pair(Local.UA, "Name UA")));
+        boxEntity.setText(Arrays.asList(new Pair(Local.EN, "Text EN"), new Pair(Local.UA, "Text UA")));
         boxEntity.setSlug("Test Slug");
         Kit kit = getKit();
         boxEntity.setKit(kit);

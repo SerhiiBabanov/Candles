@@ -12,6 +12,7 @@ RUN mvn package -DskipTests
 FROM openjdk:17.0-jdk-slim
 
 COPY --from=builder /workdir/target/*.jar /app.jar
+COPY /initData /initData
 
 
 CMD ["java" , "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
