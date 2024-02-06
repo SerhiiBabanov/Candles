@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,30 @@ import static com.mongodb.client.model.search.SearchPath.wildcardPath;
 public class SearchService {
     private final MongoCollection<Document> candleEntityMongoCollection;
     private final MongoCollection<Document> boxEntityMongoCollection;
+    private final boolean isDbOnMongoDBAtlas;
 
-    public SearchService(MongoTemplate mongoTemplate) {
+    public SearchService(MongoTemplate mongoTemplate,  @Value("${spring.data.mongodb.uri}") String mongoDbUri) {
         MongoDatabase database = mongoTemplate.getDb();
         this.candleEntityMongoCollection = database.getCollection("candleEntity");
         this.boxEntityMongoCollection = database.getCollection("boxEntity");
+        //check if db is on MongoDB Atlas
+        this.isDbOnMongoDBAtlas = mongoDbUri.endsWith("mongodb.net");
     }
 
     public List<SearchResult> fullTextSearch(String keywords, Local lang) {
+        if (isDbOnMongoDBAtlas) {
+            return fullTextSearchOnAtlas(keywords, lang);
+        } else {
+            return fullTextSearchOnLocal(keywords, lang);
+        }
+    }
+
+    private List<SearchResult> fullTextSearchOnLocal(String keywords, Local lang) {
+        //TODO: implement full text search on local db
+        return new ArrayList<>();
+    }
+
+    private List<SearchResult> fullTextSearchOnAtlas(String keywords, Local lang) {
         //only first 5 results
         int limit = 5;
         List<SearchResult> combineResults = new ArrayList<>();

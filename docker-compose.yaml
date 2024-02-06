@@ -5,10 +5,11 @@ services:
     restart: always
     container_name: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=rootuser
       - MONGO_INITDB_ROOT_PASSWORD=rootpass
+      - MONGODB_URI
     networks:
       - my-network
 
@@ -18,7 +19,14 @@ services:
       dockerfile: Dockerfile
     container_name: candles
     ports:
-      - 8082:8082
+      - "8082:8082"
+    environment:
+      - API_TOKEN
+      - API_TOKEN_NAME
+      - MAIL_PASSWORD
+      - MAIL_USERNAME
+      - TELEGRAM_BOT_TOKEN
+      - TELEGRAM_BOT_CHAT_ID
     depends_on:
       - mongodb
     networks:
