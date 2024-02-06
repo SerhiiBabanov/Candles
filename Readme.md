@@ -6,7 +6,7 @@ Build and Run Instructions
 2. Navigate to the project root directory:
    cd Candles
 
-3. Fill .env file with your credentials:
+3. Fill .env file with your credentials:  
    API_TOKEN=your_api_token;  
    API_TOKEN_NAME=your_api_token_name;  
    MAIL_PASSWORD=your_gmail_app_password;  
